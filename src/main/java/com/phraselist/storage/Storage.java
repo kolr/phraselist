@@ -38,6 +38,7 @@ public class Storage {
         Word word = new Word();
         word.setForeign("Hello");
         word.setTranslation("Привет");
+        word.setId(Word.generateId());
         this.table.add(word);
     }
 }

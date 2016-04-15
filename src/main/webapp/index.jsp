@@ -20,19 +20,16 @@
 <body ng-app="Phrases">
 <div class="container-fluid" ng-controller="TableController">
     <div class="list col-xs-6">
-        <form id="phrases" action="phrases" method="delete">
-            <c:forEach var="word" items="${lst}">
-                <div class="item col-xs-11" ng-repeat="word in words">
+        <div class="item col-xs-11" ng-repeat="word in words">
 
-                    <div class="col-xs-1"><input type="checkbox" id="word" name="word" value="${word.foreign}"
-                                                 onclick="mark(event)"></div>
-                    <div class="col-xs-2">{{word.foreign}}</div>
-                    <div class="col-xs-8">{{word.translation}}</div>
-                    <div class="col-xs-1"><span class="glyphicon glyphicon-trash" aria-hidden="true"
-                                                onclick="removeItem('${word.foreign}')"></span></div>
-                </div>
-            </c:forEach>
-        </form>
+            <div class="col-xs-1"><input type="checkbox" id="word" name="word" value="${word.foreign}"
+                                         onclick="mark(event)"></div>
+            <div class="col-xs-2">{{word.foreign}}</div>
+            <div class="col-xs-8">{{word.translation}}</div>
+            <div class="word-id">{{word.id}}</div>
+            <div class="col-xs-1"><span class="glyphicon glyphicon-trash" aria-hidden="true"
+                                        onclick="removeItem('${word.foreign}')"></span></div>
+        </div>
     </div>
 
     <div class="item-manager col-xs-5">

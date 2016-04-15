@@ -10,6 +10,10 @@ span.hidden {
     display: none;
 }
 
+div.word-id {
+    display: none;
+}
+
 div#add-word-button {
     margin-top: 10px;
     padding-top: 10px;
