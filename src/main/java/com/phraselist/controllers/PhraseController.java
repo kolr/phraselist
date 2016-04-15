@@ -4,7 +4,6 @@ import com.phraselist.storage.Storage;
 import com.phraselist.storage.entities.Word;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,9 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * ${APP}
@@ -33,11 +30,6 @@ public class PhraseController {
     private static final String FOREIGN_VALUE = "foreign";
     private static final String TRANSLATION_VALUE = "translation";
 
-    private static final String LIST_PAGE = "list";
-
-    private static final String WORD_LIST_ATTRIBUTE = "lst";
-
-    //    @Inject
     Storage storage;
 
     @Inject
@@ -55,7 +47,9 @@ public class PhraseController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody List<Word> getListWord() {
+    public
+    @ResponseBody
+    List<Word> getListWord() {
         return this.storage.getAll();
     }
 
