@@ -3,12 +3,12 @@ package com.phraselist.controllers;
 import com.phraselist.storage.Storage;
 import com.phraselist.storage.entities.Word;
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -21,10 +21,7 @@ import java.util.List;
 public class PhraseController {
     private static final Logger LOG = Logger.getLogger(PhraseController.class);
 
-    private static final String FOREIGN_VALUE = "foreign";
-    private static final String TRANSLATION_VALUE = "translation";
-
-    Storage storage;
+    private Storage storage;
 
     @Inject
     public PhraseController(Storage storage) {
@@ -32,25 +29,17 @@ public class PhraseController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void addWord(@RequestBody Word word) {
-        LOG.info(word.toString());
+    public ResponseEntity<Object> addWord(@RequestBody Word word, @PathVariable String language) {
+        LOG.info(language);
         this.storage.add(word);
+        return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody List<Word> getListWord() {
-        LOG.info("Number of words: " + this.storage.getAll().size());
+    @ResponseBody
+    public List<Word> getListWord() {
         return this.storage.getAll();
     }
 
-
-    private Word getWord(HttpServletRequest request) {
-        String foreign = request.getParameter(FOREIGN_VALUE);
-        String translation = request.getParameter(TRANSLATION_VALUE);
-        Word word = new Word();
-        word.setForeign(foreign);
-        word.setTranslation(translation);
-        return word;
-    }
 }
