@@ -7,10 +7,11 @@ app.controller('TableController', ['$scope', "Word", function($scope, Word) {
   $scope.words = [];
   // debugger
   var url = function() {
-    return {language: $scope.language||'English'};
+    return {language: $scope.language||'english'};
   }
 
   var update = function(res) {
+    console.log(url());
     if($scope.words.length == 0) {
       $scope.words = Word.query(url());
     } else {

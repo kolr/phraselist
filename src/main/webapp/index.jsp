@@ -18,8 +18,8 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body ng-app="Phrases">
-<div class="container-fluid">
-    <div class="list col-xs-6" ng-controller="TableController">
+<div class="container-fluid" ng-controller="TableController">
+    <div class="list col-xs-6">
         <form id="phrases" action="phrases" method="delete">
             <c:forEach var="word" items="${lst}">
                 <div class="item col-xs-11" ng-repeat="word in words">
@@ -38,12 +38,16 @@
     <div class="item-manager col-xs-5">
         <form>
             <div class="">
-                <input type="text" class="form-control lg-input add-word-text-area" id="originalWord" placeholder="Original Word" ng-model="foreign">
+                <input type="text" class="form-control lg-input add-word-text-area" id="originalWord"
+                       placeholder="Original Word" ng-model="foreign">
             </div>
             <div class="">
-                <input type="text" class="form-control lg-input add-word-text-area" id="translation" placeholder="Translation" ng-model="translation">
+                <input type="text" class="form-control lg-input add-word-text-area" id="translation"
+                       placeholder="Translation" ng-model="translation">
             </div>
-            <span class="glyphicon glyphicon-ok vocabulary-button-text" aria-hidden="true" ng-click="addWord()"></span>
+            <div id="add-word-button" ng-click="addWord()">
+                <span class="glyphicon glyphicon-ok vocabulary-button-text" aria-hidden="true"></span>
+            </div>
         </form>
         <span id="trash" class="glyphicon glyphicon-trash hidden" aria-hidden="true" onclick="removeItems()"></span>
     </div>

@@ -4,10 +4,7 @@ import com.phraselist.storage.Storage;
 import com.phraselist.storage.entities.Word;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +21,6 @@ import java.util.List;
 public class PhraseController {
     private static final Logger LOG = Logger.getLogger(PhraseController.class);
 
-    private static final String REDIRECT = "redirect:/";
-    private static final String CURRENT_PATH = "/phrases";
-
     private static final String FOREIGN_VALUE = "foreign";
     private static final String TRANSLATION_VALUE = "translation";
 
@@ -38,18 +32,15 @@ public class PhraseController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void addWord(@PathVariable String language, HttpServletRequest request) throws UnsupportedEncodingException {
-        request.setCharacterEncoding("utf-8");
-        Word word = getWord(request);
-        this.storage.add(word);
+    public void addWord(@RequestBody Word word) {
         LOG.info(word.toString());
+        this.storage.add(word);
     }
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<Word> getListWord() {
+    public @ResponseBody List<Word> getListWord() {
+        LOG.info("Number of words: " + this.storage.getAll().size());
         return this.storage.getAll();
     }
 

@@ -9,3 +9,13 @@ div.item-marked {
 span.hidden {
     display: none;
 }
+
+div#add-word-button {
+    margin-top: 10px;
+    padding-top: 10px;
+    width: 100px;
+    height: 35px;
+    background-color: #337ab7;
+    color: white;
+    text-align: center;
+}
