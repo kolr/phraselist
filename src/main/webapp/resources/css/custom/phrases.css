@@ -1,0 +1,11 @@
+div.item:hover {
+    background-color: #EFF1FA;
+}
+
+div.item-marked {
+    background-color: #EFF0FF;
+}
+
+span.hidden {
+    display: none;
+}
