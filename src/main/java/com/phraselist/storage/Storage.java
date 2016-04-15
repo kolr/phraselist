@@ -25,9 +25,9 @@ public class Storage {
         return this.table;
     }
 
-    public void delete(String word) {
+    public void delete(long word) {
         for (Word item : this.table) {
-            if (item.getForeign().equals(word)) {
+            if (item.getId() == word) {
                 this.table.remove(item);
                 break;
             }

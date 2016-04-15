@@ -2,7 +2,7 @@ app.factory("Word", function($resource){
   return $resource(":language/phrases", {language: '@language'});
 })
 
-app.controller('TableController', ['$scope', "Word", function($scope, Word) {
+app.controller('TableController', ['$scope', '$http', "Word", function($scope, $http, Word) {
   $scope.language = 'english';
   $scope.words = [];
   // debugger
@@ -31,11 +31,9 @@ app.controller('TableController', ['$scope', "Word", function($scope, Word) {
 
   };
 
-  $scope.deleteWord = function(e) {
-    var el = e.target;
-    console.log(el);
-    // var arr = $scope.words.splice(index, 1);
-    // var word = new Word();
-    // word.foreign = $scope
+  $scope.deleteWord = function(id) {
+      $http.delete("/" + $scope.language + "/phrases/" + id, function(){
+          console.log(id + " was delete");
+      }).then(update);
   };
 }]);

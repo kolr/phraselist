@@ -28,7 +28,7 @@
             <div class="col-xs-8">{{word.translation}}</div>
             <div class="word-id">{{word.id}}</div>
             <div class="col-xs-1"><span class="glyphicon glyphicon-trash" aria-hidden="true"
-                                        onclick="removeItem('${word.foreign}')"></span></div>
+                                        ng-click="deleteWord(word.id)"></span></div>
         </div>
     </div>
 
