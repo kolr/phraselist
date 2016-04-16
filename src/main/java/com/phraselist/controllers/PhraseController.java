@@ -29,11 +29,11 @@ public class PhraseController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Object> addWord(@RequestBody Word word, @PathVariable String language) {
+    public ResponseEntity<Word> addWord(@RequestBody Word word, @PathVariable String language) {
         LOG.info(language);
         word.setId(Word.generateId());
         this.storage.add(word);
-        return new ResponseEntity<Object>(HttpStatus.OK);
+        return new ResponseEntity<Word>(word, HttpStatus.OK);
     }
 
 
@@ -44,10 +44,10 @@ public class PhraseController {
     }
 
     @RequestMapping(value = "/{wordID}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteWord(@PathVariable long wordID) {
+    public ResponseEntity<String> deleteWord(@PathVariable long wordID) {
         LOG.info(wordID);
         this.storage.delete(wordID);
-        return new ResponseEntity<Object>(HttpStatus.OK);
+        return new ResponseEntity<String>(String.valueOf(wordID), HttpStatus.OK);
     }
 
 }

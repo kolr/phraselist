@@ -11,12 +11,19 @@ app.controller('TableController', ['$scope', '$http', "Word", function($scope, $
   }
 
   var update = function(res) {
-    console.log(url());
-    if($scope.words.length == 0) {
+    if($scope.words.length == 0 || res.data == "") {
       $scope.words = Word.query(url());
     } else {
       $scope.words.push(res);
     }
+  };
+
+  var updateOnDelete = function(res) {
+      if ($scope.words.length == 0 || res.data == "") {
+          $scope.words = Word.query(url());
+      } else {
+          $scope.words.push(res);
+      }
   };
 
   update();
