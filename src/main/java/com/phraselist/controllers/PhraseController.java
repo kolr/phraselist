@@ -45,7 +45,6 @@ public class PhraseController {
 
     @RequestMapping(value = "/{wordID}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteWord(@PathVariable long wordID) {
-        LOG.info(wordID);
         this.storage.delete(wordID);
         return new ResponseEntity<String>(String.valueOf(wordID), HttpStatus.OK);
     }
