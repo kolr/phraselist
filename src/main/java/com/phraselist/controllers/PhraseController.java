@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -47,6 +48,11 @@ public class PhraseController {
     public ResponseEntity<String> deleteWord(@PathVariable long wordID) {
         this.storage.delete(wordID);
         return new ResponseEntity<String>(String.valueOf(wordID), HttpStatus.OK);
+    }
+
+    public ResponseEntity<String> deleteWords(@RequestBody String IDs) {
+        // TODO implement method, which will remove several objects.
+        throw new NotImplementedException();
     }
 
 }
