@@ -19,13 +19,10 @@ app.controller('TableController', ['$scope', '$http', "Word", function($scope, $
 
   var updateOnDelete = function(res) {
       var deletedID = res.data;
-
       var el = $scope.words.find(function(arrItem){
           return arrItem.id === deletedID;
       });
-
       var deletedIndex = $scope.words.indexOf(el);
-
       $scope.words = [...$scope.words.slice(0, deletedIndex), ...$scope.words.slice(deletedIndex + 1)];
   };
 
