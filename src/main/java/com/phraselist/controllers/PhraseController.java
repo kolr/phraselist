@@ -50,9 +50,13 @@ public class PhraseController {
         return new ResponseEntity<String>(String.valueOf(wordID), HttpStatus.OK);
     }
 
-    public ResponseEntity<String> deleteWords(@RequestBody String IDs) {
-        // TODO implement method, which will remove several objects.
-        throw new NotImplementedException();
+    @RequestMapping(method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteWords(@RequestBody List<String> markedItems) {
+        for (String item :
+                markedItems) {
+            LOG.info(item);
+        }
+        return new ResponseEntity<String>(HttpStatus.OK);
     }
 
 }
