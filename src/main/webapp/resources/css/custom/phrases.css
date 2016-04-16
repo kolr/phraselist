@@ -1,20 +1,22 @@
-div.item:hover {
-    background-color: #EFF1FA;
+div.list-manager {
+    height: 8vh;
 }
 
-div.item-marked {
-    background-color: #EFF0FF;
+div.word-table {
+    height: 91vh;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
-span.hidden {
+td.word-id {
     display: none;
 }
 
-div.word-id {
-    display: none;
+div.search-input {
+    margin-top: 10px;
 }
 
-div#add-word-button {
+div.manager-button {
     margin-top: 10px;
     padding-top: 10px;
     width: 100px;
@@ -22,4 +24,17 @@ div#add-word-button {
     background-color: #337ab7;
     color: white;
     text-align: center;
+}
+
+div.word-table::-webkit-scrollbar {
+    width: 1em;
+}
+
+div.word-table::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+div.word-table::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
 }

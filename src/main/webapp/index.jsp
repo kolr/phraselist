@@ -19,16 +19,27 @@
 </head>
 <body ng-app="Phrases">
 <div class="container-fluid" ng-controller="TableController">
-    <div class="list col-xs-6">
-        <div class="item col-xs-11" ng-repeat="word in words">
-
-            <div class="col-xs-1"><input type="checkbox" id="word" name="word" value="${word.foreign}"
-                                         onclick="mark(event)"></div>
-            <div class="col-xs-2">{{word.foreign}}</div>
-            <div class="col-xs-8">{{word.translation}}</div>
-            <div class="word-id">{{word.id}}</div>
-            <div class="col-xs-1"><span class="glyphicon glyphicon-trash" aria-hidden="true"
-                                        ng-click="deleteWord(word.id)"></span></div>
+    <div class="col-xs-6 right">
+        <div class="col-xs-12 list-manager">
+            <div class="manager-button col-xs-3" disabled="disabled">
+                <span id="trash" class="delete glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </div>
+            <div class="col-xs-6 search-input">
+                <input type="text" class="form-control" placeholder="Enter a word you want to find">
+            </div>
+        </div>
+        <div class="list col-xs-12 word-table">
+            <table class="table table-hover item col-xs-11" >
+                <tr ng-repeat="word in words">
+                    <td class="col-md-1"><input type="checkbox" id="word" name="word" value="${word.foreign}"
+                                                 onclick="mark(event)"></td>
+                    <td class="col-md-2">{{word.foreign}}</td>
+                    <td class="col-md-5">{{word.translation}}</td>
+                    <td class="word-id">{{word.id}}</td>
+                    <td class="col-md-1"><span class="glyphicon glyphicon-trash" aria-hidden="true"
+                                                ng-click="deleteWord(word.id)"></span></td>
+                </tr>
+            </table>
         </div>
     </div>
 
@@ -42,11 +53,10 @@
                 <input type="text" class="form-control lg-input add-word-text-area" id="translation"
                        placeholder="Translation" ng-model="translation">
             </div>
-            <div id="add-word-button" ng-click="addWord()">
+            <div class="manager-button" ng-click="addWord()">
                 <span class="glyphicon glyphicon-ok vocabulary-button-text" aria-hidden="true"></span>
             </div>
         </form>
-        <span id="trash" class="glyphicon glyphicon-trash hidden" aria-hidden="true" onclick="removeItems()"></span>
     </div>
 </div>
 </body>
