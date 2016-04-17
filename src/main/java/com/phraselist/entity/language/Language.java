@@ -5,8 +5,8 @@ package com.phraselist.entity.language;
  * Created by Rodion.
  */
 public class Language {
-    long id;
-    String language;
+    private long id;
+    private String language;
 
     public Language() {
         super();

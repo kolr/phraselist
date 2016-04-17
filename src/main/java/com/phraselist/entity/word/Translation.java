@@ -5,9 +5,9 @@ package com.phraselist.entity.word;
  * Created by Rodion.
  */
 public class Translation {
-    long id;
-    String word;
-    long language_id;
+    private long id;
+    private String word;
+    private long languageId;
 
     public Translation() {
         super();
@@ -29,12 +29,12 @@ public class Translation {
         this.word = word;
     }
 
-    public long getLanguage_id() {
-        return language_id;
+    public long getLanguageId() {
+        return languageId;
     }
 
-    public void setLanguage_id(long language_id) {
-        this.language_id = language_id;
+    public void setLanguageId(long languageId) {
+        this.languageId = languageId;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Translation {
         Translation that = (Translation) o;
 
         if (id != that.id) return false;
-        if (language_id != that.language_id) return false;
+        if (languageId != that.languageId) return false;
         return word != null ? word.equals(that.word) : that.word == null;
 
     }
@@ -54,7 +54,7 @@ public class Translation {
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (word != null ? word.hashCode() : 0);
-        result = 31 * result + (int) (language_id ^ (language_id >>> 32));
+        result = 31 * result + (int) (languageId ^ (languageId >>> 32));
         return result;
     }
 
@@ -63,7 +63,7 @@ public class Translation {
         return "Translation{" +
                 "id=" + id +
                 ", word='" + word + '\'' +
-                ", language_id=" + language_id +
+                ", languageId=" + languageId +
                 '}';
     }
 }
