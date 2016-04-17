@@ -5,6 +5,7 @@
 
 var markedItems = [];
 var markedCounter = 0;
+var deleteEnabled = false;
 
 function mark() {
     var input = event.target;
@@ -16,23 +17,41 @@ function mark() {
     } else {
         unmark(wordValue, input);
     }
-    console.log(markedItems);
+    enablingDeleteButton();
+    displayEnabling();
 }
 
 function unmark(wordValue, input) {
     delete markedItems[markedItems.indexOf(wordValue)];
     markedCounter--;
     input.parentNode.parentNode.classList.remove("item-marked");
+    enablingDeleteButton();
 }
 
 
-function cleanMarkedItemsList() {
-    var cleanedList = [];
-    for (var i = 0; i < markedItems.length; i++) {
-        if (markedItems[i] !== undefined) {
-            cleanedList.push(markedItems[i]);
-        }
+function enablingDeleteButton() {
+    console.log("Number of marked items - " + markedCounter);
+    if (markedCounter == 0) {
+        deleteEnabled = false;
+    } else {
+        deleteEnabled = true;
     }
-    markedItems = [];
-    return cleanedList;
+    console.log("deleting enabled: " + deleteEnabled);
+}
+
+function displayEnabling() {
+    var deleteAllButton = document.getElementById("deleteAll");
+    if (deleteEnabled) {
+        if (deleteAllButton.classList.contains("disabled-button")) {
+            deleteAllButton.classList.remove("disabled-button");
+            console.log("removed class disabled-button");
+        }
+        console.log("delete enabled");
+    } else {
+        if (!deleteAllButton.classList.contains("disabled-button")) {
+            deleteAllButton.classList.add("disabled-button");
+            console.log("added class disabled-button");
+        }
+        console.log("display disabled");
+    }
 }

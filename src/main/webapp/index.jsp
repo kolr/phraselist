@@ -21,7 +21,7 @@
 <div class="container-fluid" ng-controller="TableController">
     <div class="col-xs-6 right">
         <div class="col-xs-12 list-manager">
-            <div class="manager-button col-xs-3 disabled" ng-click="deleteWords()">
+            <div id="deleteAll" class="manager-button col-xs-3 disabled-button" ng-click="deleteWords()">
                 <span id="trash" class="delete glyphicon glyphicon-trash" aria-hidden="true"></span>
             </div>
             <div class="col-xs-6 search-input">

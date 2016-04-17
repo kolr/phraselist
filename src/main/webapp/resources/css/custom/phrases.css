@@ -31,10 +31,18 @@ div.word-table::-webkit-scrollbar {
 }
 
 div.word-table::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 div.word-table::-webkit-scrollbar-thumb {
     background-color: darkgrey;
     outline: 1px solid slategrey;
+}
+
+div.disabled-button {
+    background-color: darkgrey;
+}
+
+div.disabled-button:hover {
+    cursor: not-allowed;
 }

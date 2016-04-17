@@ -1,13 +1,13 @@
 app.factory("Word", function ($resource) {
     return $resource(":language/phrases", {language: '@language'});
-})
+});
 
 app.controller('TableController', ['$scope', '$http', "Word", function ($scope, $http, Word) {
     $scope.language = 'english';
     $scope.words = [];
     var url = function () {
         return {language: $scope.language || 'english'};
-    }
+    };
 
     var update = function (res) {
         if ($scope.words.length == 0 || res.data == "") {
@@ -15,6 +15,8 @@ app.controller('TableController', ['$scope', '$http', "Word", function ($scope, 
         } else {
             $scope.words.push(res);
         }
+        enablingDeleteButton();
+        displayEnabling();
     };
 
     var updateOnDelete = function (res) {
@@ -45,6 +47,10 @@ app.controller('TableController', ['$scope', '$http', "Word", function ($scope, 
     };
 
     $scope.deleteWords = function () {
+        if (markedCounter == 0) {
+            return;
+        }
+        markedCounter = 0;
         $http.post("/" + $scope.language + "/phrases/all", markedItems, function () {
             console.log("several deleted.");
         }).then(update);
