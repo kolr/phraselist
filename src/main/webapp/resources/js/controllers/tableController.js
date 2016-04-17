@@ -45,11 +45,8 @@ app.controller('TableController', ['$scope', '$http', "Word", function ($scope, 
     };
 
     $scope.deleteWords = function () {
-        $http({
-            url: "/" + $scope.language + "/phrases/",
-            method: 'DELETE',
-            data: {'markedItems': markedItems},
-            headers: {"Content-Type": "application/json;charset=utf-8"}
-        });
+        $http.post("/" + $scope.language + "/phrases/all", markedItems, function () {
+            console.log("several deleted.");
+        }).then(update);
     }
 }]);
