@@ -1,7 +1,7 @@
 <Context>
     <Resource name="jdbc/voc"
               auth="Container"
-              type="javax.sql.DataSource"
+              type="org.springframework.jdbc.datasource.DriverManagerDataSource"
               maxActive="100" maxIdle="30" maxWait="10000"
               username="root" password="energystar"
               driverClassName="com.mysql.jdbc.Driver"
