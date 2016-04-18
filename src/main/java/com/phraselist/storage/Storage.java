@@ -1,5 +1,6 @@
 package com.phraselist.storage;
 
+import com.phraselist.entity.word.PhraseListItem;
 import com.phraselist.storage.entities.Word;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
  * Created by Rodion on 25.03.2016.
  */
 public class Storage {
-    List<Word> table;
+    List<PhraseListItem> table;
 
     public Storage() {
         this.table = new ArrayList<Word>();
