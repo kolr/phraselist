@@ -1,6 +1,7 @@
 package com.phraselist.components.services.user;
 
 import com.phraselist.entity.user.User;
+import com.phraselist.model.beans.user.ClientUserBean;
 
 /**
  * 19.04.2016
@@ -12,7 +13,7 @@ public interface UserService {
      *
      * @param user - new user.
      */
-    void createUser(User user);
+    void createUser(ClientUserBean user);
 
     /**
      * Updates existing in data base user.
