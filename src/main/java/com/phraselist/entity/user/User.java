@@ -11,6 +11,7 @@ public class User {
     private String name;
     private String lastName;
     private String pass;
+    private long roleId;
 
     public User() {
         super();
@@ -64,6 +65,14 @@ public class User {
         this.pass = pass;
     }
 
+    public long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(long roleId) {
+        this.roleId = roleId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,6 +81,7 @@ public class User {
         User user = (User) o;
 
         if (id != user.id) return false;
+        if (roleId != user.roleId) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
@@ -88,6 +98,7 @@ public class User {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (pass != null ? pass.hashCode() : 0);
+        result = 31 * result + (int) (roleId ^ (roleId >>> 32));
         return result;
     }
 
@@ -100,6 +111,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", pass='" + pass + '\'' +
+                ", roleId=" + roleId +
                 '}';
     }
 }
