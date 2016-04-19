@@ -1,4 +1,4 @@
-package com.phraselist.components.services;
+package com.phraselist.components.services.user;
 
 import com.phraselist.entity.user.User;
 
