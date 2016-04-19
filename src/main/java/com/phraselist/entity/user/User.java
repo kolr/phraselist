@@ -1,5 +1,7 @@
 package com.phraselist.entity.user;
 
+import com.phraselist.model.beans.user.ClientUserBean;
+
 /**
  * 17.04.2016
  * Created by Rodion.
