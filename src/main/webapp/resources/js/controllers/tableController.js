@@ -46,6 +46,12 @@ app.controller('TableController', ['$scope', '$http', "Word", function ($scope, 
         }).then(updateOnDelete);
     };
 
+    $scope.addLabel = function (label) {
+        $http.post("/" + $scope.language + "/phrases/label/" + label, function () {
+            console.log(label + " was delete");
+        }).then(update);
+    };
+
     $scope.deleteWords = function () {
         if (markedCounter == 0) {
             return;

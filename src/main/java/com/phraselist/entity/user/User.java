@@ -10,6 +10,7 @@ public class User {
     private String login;
     private String name;
     private String lastName;
+    private String pass;
 
     public User() {
         super();
@@ -55,6 +56,14 @@ public class User {
         this.lastName = lastName;
     }
 
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -66,7 +75,8 @@ public class User {
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
-        return lastName != null ? lastName.equals(user.lastName) : user.lastName == null;
+        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
+        return pass != null ? pass.equals(user.pass) : user.pass == null;
 
     }
 
@@ -77,6 +87,7 @@ public class User {
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (pass != null ? pass.hashCode() : 0);
         return result;
     }
 
@@ -88,6 +99,7 @@ public class User {
                 ", login='" + login + '\'' +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", pass='" + pass + '\'' +
                 '}';
     }
 }
