@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 /**
  * 19.04.2016
@@ -26,7 +27,7 @@ public class UserController {
     private UserDAO userDAO;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Object> createUser(@RequestBody User user) {
+    public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
 
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
