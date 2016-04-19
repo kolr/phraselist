@@ -1,7 +1,8 @@
-package com.phraselist.controllers;
+package com.phraselist.components.controllers;
 
+import com.phraselist.components.data.dao.UserDAO;
 import com.phraselist.storage.Storage;
-import com.phraselist.storage.entities.Word;
+import com.phraselist.storage.Word;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,9 @@ public class PhraseController {
     private static final Logger LOG = Logger.getLogger(PhraseController.class);
 
     private Storage storage;
+
+    @Inject
+    private UserDAO userDAO;
 
     @Inject
     public PhraseController(Storage storage) {
@@ -54,6 +58,12 @@ public class PhraseController {
         for (String item : markedItems) {
             this.storage.delete(Long.valueOf(item));
         }
+        return new ResponseEntity<String>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/label/{name}", method = RequestMethod.POST)
+    public ResponseEntity<String> addLabel(@PathVariable String name) {
+        userDAO.insertLabel(name);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 

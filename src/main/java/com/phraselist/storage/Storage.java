@@ -1,6 +1,6 @@
 package com.phraselist.storage;
 
-import com.phraselist.storage.entities.Word;
+import com.phraselist.entity.word.PhraseListItem;
 
 import java.util.ArrayList;
 import java.util.List;

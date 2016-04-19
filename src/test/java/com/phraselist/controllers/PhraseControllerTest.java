@@ -1,5 +1,6 @@
 package com.phraselist.controllers;
 
+import com.phraselist.components.controllers.PhraseController;
 import com.phraselist.storage.Storage;
 import com.phraselist.storage.entities.Word;
 import org.junit.Test;
