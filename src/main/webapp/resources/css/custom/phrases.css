@@ -2,8 +2,17 @@ div.list-manager {
     height: 8vh;
 }
 
+.phrase-navbar {
+    background-color: #96E8F5;
+    color: #ffffff;
+}
+
+a.phrase-navbar-link {
+    color: #ffffff;
+}
+
 div.word-table {
-    height: 91vh;
+    height: 80vh;
     overflow: scroll;
     overflow-x: hidden;
 }

@@ -1,7 +1,7 @@
 package com.phraselist.components.controllers;
 
-import com.phraselist.components.data.dao.UserDAO;
-import com.phraselist.entity.user.User;
+import com.phraselist.components.services.user.UserService;
+import com.phraselist.model.beans.user.ClientUserBean;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +24,12 @@ public class UserController {
     private static final Logger LOG = Logger.getLogger(UserController.class);
 
     @Inject
-    private UserDAO userDAO;
+    private UserService userService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
-
+    public ResponseEntity<Object> createUser(@Valid @RequestBody ClientUserBean user) {
+        userService.createUser(user);
+        LOG.info("User " + user.getName() + " " + user.getEmail() + " was created successfully.");
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 }
