@@ -29,6 +29,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Object> createUser(@Valid @RequestBody ClientUserBean user) {
         userService.createUser(user);
+        LOG.info("User " + user.getName() + " " + user.getEmail() + " was created successfully.");
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 }

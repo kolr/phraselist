@@ -2,22 +2,137 @@
 <head>
     <%@ page isELIgnored="false" %>
     <title>List</title>
+    <link href="resources/css/custom/phrases.css" rel="stylesheet">
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/css/bootstrap.css" rel="stylesheet">
     <link href="resources/css/bootstrap-theme.css" rel="stylesheet">
     <link href="resources/css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="resources/css/custom/phrases.css" rel="stylesheet">
 
     <script src="resources/js/angular/angular.min.js"></script>
     <script src="resources/js/angular/angular-resource.js"></script>
 
     <script src="resources/js/App.js"></script>
     <script src="resources/js/controllers/tableController.js"></script>
-
+    <script src="resources/js/controllers/UserController.js"></script>
+    <script src="resources/js/jquary/jquery-1.12.3.min.js"></script>
+    <script src="resources/js/bootstrap/bootstrap.min.js"></script>
     <script src="resources/js/PhrasesManager.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body ng-app="Phrases">
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid phrase-navbar">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand phrase-navbar-link" href="#">PhraseList</a>
+        </div>
+        <div ng-controller="userController">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a  data-toggle="modal" data-target="#signUp">
+                        Sign Up
+                    </a>
+                </li>
+                <li>
+                    <a  data-toggle="modal" data-target="#logIn">
+                        Log In
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle  phrase-navbar-link" data-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Modal -->
+            <div class="modal fade" id="logIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Sign In</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Log In</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="signUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel1">Registration</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="inputName1">Name</label>
+                                    <input type="text" class="form-control" id="inputName1" ng-model="signUpName" placeholder="Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputLastname1">Lastname</label>
+                                    <input type="text" class="form-control" id="inputLastname1" ng-model="signUpLastname" placeholder="Lastname">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputLogin1">Login</label>
+                                    <input type="text" class="form-control" id="inputLogin1" ng-model="signUpLogin" placeholder="Login">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail1">Email address</label>
+                                    <input type="email" class="form-control" id="inputEmail1" ng-model="signUpEmail" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword1">Password</label>
+                                    <input type="password" class="form-control" id="inputPassword1" ng-model="signUpPassword" placeholder="Password">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" ng-click="addUser()">Sign Up</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
 <div class="container-fluid" ng-controller="TableController">
     <div class="col-xs-6 right">
         <div class="col-xs-12 list-manager">
@@ -29,15 +144,15 @@
             </div>
         </div>
         <div class="list col-xs-12 word-table">
-            <table class="table table-hover item col-xs-11" >
+            <table class="table table-hover item col-xs-11">
                 <tr ng-repeat="word in words">
                     <td class="col-md-1"><input type="checkbox" id="word" name="word" value="${word.foreign}"
-                                                 onclick="mark(event)"></td>
+                                                onclick="mark(event)"></td>
                     <td class="col-md-2">{{word.foreign}}</td>
                     <td class="col-md-5">{{word.translation}}</td>
                     <td class="word-id">{{word.id}}</td>
                     <td class="col-md-1"><span class="glyphicon glyphicon-trash" aria-hidden="true"
-                                                ng-click="deleteWord(word.id)"></span></td>
+                                               ng-click="deleteWord(word.id)"></span></td>
                 </tr>
             </table>
         </div>
