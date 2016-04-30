@@ -55,3 +55,11 @@ div.disabled-button {
 div.disabled-button:hover {
     cursor: not-allowed;
 }
+
+div.input-with-error {
+    color: red;
+}
+
+div.input-with-error input{
+    border: solid 1px red;
+}
