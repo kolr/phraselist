@@ -20,13 +20,13 @@ app.controller('userController', ['$scope', '$http', "User", function ($scope, $
         user.lastname = $scope.signUpLastname;
         user.password = $scope.signUpPassword;
         console.log(user);
-        $http.post("/user", user, function(){
+        user.$save("/user", function(){
             $scope.signUpLogin = "";
             $scope.signUpEmail = "";
             $scope.signUpName = "";
             $scope.signUpLastname = "";
             $scope.signUpPassword = "";
-        })
+        });
 
     };
 
