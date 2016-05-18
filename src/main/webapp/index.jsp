@@ -98,25 +98,32 @@
                         </div>
                         <div class="modal-body">
                             <form>
-                                <div class="form-group">
-                                    <label for="inputName1">Name</label>
-                                    <input type="text" class="form-control" id="inputName1" ng-model="signUpName" placeholder="Name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputLastname1">Lastname</label>
-                                    <input type="text" class="form-control" id="inputLastname1" ng-model="signUpLastname" placeholder="Lastname">
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputName1">Name</label>
+                                        <input type="text" class="form-control" id="inputName1" ng-model="signUpName" placeholder="Name">
+                                        <div class="error-box"><p class="bg-danger error-hidden">More than 2 symbols</p></div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputLastname1">Lastname</label>
+                                        <input type="text" class="form-control" id="inputLastname1" ng-model="signUpLastname" placeholder="Lastname">
+                                        <div class="error-box"><p class="bg-danger error-hidden">More than 2 symbols</p></div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputLogin1">Login</label>
                                     <input type="text" class="form-control" id="inputLogin1" ng-model="signUpLogin" placeholder="Login">
+                                    <div class="error-box"><p class="bg-danger error-hidden">More than 2 symbols, and should be unique</p></div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputEmail1">Email address</label>
                                     <input type="email" class="form-control" id="inputEmail1" ng-model="signUpEmail" placeholder="Email">
+                                    <div class="error-box"><p class="bg-danger error-hidden">Seems like it is not email address</p></div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword1">Password</label>
                                     <input type="password" class="form-control" id="inputPassword1" ng-model="signUpPassword" placeholder="Password">
+                                    <div class="error-box"><p class="bg-danger error-hidden">More than 8 symbols</p></div>
                                 </div>
                             </form>
                         </div>

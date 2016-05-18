@@ -1,9 +1,6 @@
 package com.phraselist.components.data.dao;
 
-import com.phraselist.entity.label.Label;
 import com.phraselist.entity.user.User;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.inject.Inject;

@@ -63,3 +63,21 @@ div.input-with-error {
 div.input-with-error input{
     border: solid 1px red;
 }
+
+p.error-hidden {
+    display: none;
+}
+
+div.error-holder {
+    height: 20px;
+}
+
+div.error-box {
+    height: 29px;
+}
+
+div.error-box p {
+    margin-top: 1px;
+    padding: 5px;
+    border-radius: 5px;
+}
