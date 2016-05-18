@@ -33,6 +33,14 @@ public class UserDAO {
         jdbcTemplate.update(query, namedParameters);
     }
 
+    public User getUser(String login) {
+        String query = "SELECT * FROM USERS WHERE login=:login";
+        Map namedParameters = new HashMap();
+        namedParameters.put("login", login);
+        
+        return null;
+    }
+
     public void insertLabel(String label) {
         String query = "INSERT INTO LABELS (LABEL) VALUES (:label)";
         Map namedParameters = new HashMap();
