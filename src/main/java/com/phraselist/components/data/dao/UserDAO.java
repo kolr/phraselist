@@ -1,5 +1,6 @@
 package com.phraselist.components.data.dao;
 
+import com.phraselist.components.data.mapper.UserMapper;
 import com.phraselist.entity.user.User;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -37,8 +38,8 @@ public class UserDAO {
         String query = "SELECT * FROM USERS WHERE login=:login";
         Map namedParameters = new HashMap();
         namedParameters.put("login", login);
-
-        return null;
+        User user = jdbcTemplate.queryForObject(query, namedParameters, new UserMapper());
+        return user;
     }
 
     public void insertLabel(String label) {
