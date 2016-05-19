@@ -33,7 +33,8 @@ public class UserServiceImpl implements UserService {
     }
 
     public User getUserByLogin(String login) {
-        return null;
+        User user = userDAO.getUser(login);
+        return user;
     }
 
     public User getUserByEmail(String email) {
