@@ -62,13 +62,15 @@ document.getElementsByTagName("input").onchange = function(event) {
     console.log("changed");
 }
 
+
+// TODO listeners
 function UserRegistrationValidator(login, email, name, lastname, password) {
     var ids = ["inputName1", "inputLastname1", "inputLogin1", "inputEmail1", "inputPassword1"];
-    for(var i = 0; i < 5; i++) {
-        document.getElementById(ids[i]).onchange = function(){
-            console.log('tap');
-        };
-    }
+    // for(var i = 0; i < 5; i++) {
+    //     // document.getElementById(ids[i]).onchange = function(){
+    //     //     console.log('tap');
+    //     // };
+    // }
 };
 
 var userRegistrationValidator = new UserRegistrationValidator();

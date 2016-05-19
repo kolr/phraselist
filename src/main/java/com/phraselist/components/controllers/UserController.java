@@ -34,6 +34,7 @@ public class UserController {
 
     @RequestMapping(value = "{login}", method = RequestMethod.GET)
     public ResponseEntity<ClientUserBean> getUser(@PathVariable String login) {
+        LOG.info("Input variables - " + login + ".");
         User user = userService.getUserByLogin(login);
         ClientUserBean userBean = new ClientUserBean();
         userBean.setLogin(user.getLogin());

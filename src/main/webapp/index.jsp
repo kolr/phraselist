@@ -70,25 +70,25 @@
                         <div class="modal-body">
                             <form>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                                    <label for="exampleInputLogin1">Login</label>
+                                    <input type="text" class="form-control" id="exampleInputLogin1" ng-model="signInLogin" placeholder="Login">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                    <input type="password" class="form-control" id="exampleInputPassword1" ng-model="signInPass" placeholder="Password">
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Log In</button>
+                            <button type="button" class="btn btn-primary" ng-click="getUser()">Log In</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="signUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal fade" id="signUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -135,7 +135,7 @@
                 </div>
             </div>
 
-        </div>
+        </div>  <!-- End of user controller scope -->
     </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

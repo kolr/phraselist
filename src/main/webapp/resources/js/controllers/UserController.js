@@ -20,7 +20,7 @@ app.controller('userController', ['$scope', '$http', "User", function ($scope, $
         user.lastname = $scope.signUpLastname;
         user.password = $scope.signUpPassword;
         console.log(user);
-        user.$save("/user", function(){
+        user.$save("/user", function () {
             $scope.signUpLogin = "";
             $scope.signUpEmail = "";
             $scope.signUpName = "";
@@ -30,25 +30,12 @@ app.controller('userController', ['$scope', '$http', "User", function ($scope, $
 
     };
 
-    $scope.deleteWord = function (id) {
-        $http.delete("/" + $scope.language + "/phrases/" + id, function () {
-            console.log(id + " was delete");
-        }).then(updateOnDelete);
+    $scope.getUser = function () {
+        $http.get("/user/" + $scope.signInLogin, function (data) {
+            console.log("user");
+            console.log(data);
+        });
+
     };
 
-    $scope.addLabel = function (label) {
-        $http.post("/" + $scope.language + "/phrases/label/" + label, function () {
-            console.log(label + " was delete");
-        }).then(update);
-    };
-
-    $scope.deleteWords = function () {
-        if (markedCounter == 0) {
-            return;
-        }
-        markedCounter = 0;
-        $http.post("/" + $scope.language + "/phrases/all", markedItems, function () {
-            console.log("several deleted.");
-        }).then(update);
-    }
 }]);
