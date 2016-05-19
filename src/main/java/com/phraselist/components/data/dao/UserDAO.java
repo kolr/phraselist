@@ -37,7 +37,7 @@ public class UserDAO {
         String query = "SELECT * FROM USERS WHERE login=:login";
         Map namedParameters = new HashMap();
         namedParameters.put("login", login);
-        
+
         return null;
     }
 
