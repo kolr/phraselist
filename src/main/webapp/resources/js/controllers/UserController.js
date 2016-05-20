@@ -31,11 +31,10 @@ app.controller('userController', ['$scope', '$http', "User", function ($scope, $
     };
 
     $scope.getUser = function () {
-        $http.get("/user/" + $scope.signInLogin, function (data) {
+        var user = $http.get("/user/" + $scope.signInLogin).success(function(data){
             console.log("user");
             console.log(data);
         });
-
     };
 
 }]);
