@@ -3,6 +3,7 @@ package com.phraselist.components.controllers;
 import com.phraselist.components.services.user.UserService;
 import com.phraselist.entity.user.User;
 import com.phraselist.model.beans.user.ClientUserBean;
+import com.phraselist.model.beans.user.ClientUserBeanCommon;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,15 +34,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "{login}", method = RequestMethod.GET)
-    public ResponseEntity<ClientUserBean> getUser(@PathVariable String login) {
+    public ResponseEntity<ClientUserBeanCommon> getUser(@PathVariable String login) {
         LOG.info("Input variables - " + login + ".");
         User user = userService.getUserByLogin(login);
-        ClientUserBean userBean = new ClientUserBean();
+        ClientUserBeanCommon userBean = new ClientUserBeanCommon();
         userBean.setLogin(user.getLogin());
         userBean.setEmail(user.getEmail());
         userBean.setName(user.getName());
         userBean.setLastname(user.getLastName());
-        userBean.setPassword(user.getPass());
-        return new ResponseEntity<ClientUserBean>(userBean, HttpStatus.OK);
+        return new ResponseEntity<ClientUserBeanCommon>(userBean, HttpStatus.OK);
     }
 }
