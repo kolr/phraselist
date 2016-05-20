@@ -2,6 +2,8 @@
 <head>
     <%@ page isELIgnored="false" %>
     <title>List</title>
+    <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+
     <link href="resources/css/custom/phrases.css" rel="stylesheet">
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/css/bootstrap.css" rel="stylesheet">
@@ -11,13 +13,13 @@
     <script src="resources/js/angular/angular.min.js"></script>
     <script src="resources/js/angular/angular-resource.js"></script>
 
+    <script src="resources/js/jquary/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="resources/js/bootstrap/bootstrap.min.js"></script>
     <script src="resources/js/App.js"></script>
     <script src="resources/js/controllers/tableController.js"></script>
     <script src="resources/js/controllers/UserController.js"></script>
-    <script src="resources/js/jquary/jquery-1.12.3.min.js"></script>
-    <script src="resources/js/bootstrap/bootstrap.min.js"></script>
     <script src="resources/js/PhrasesManager.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body ng-app="Phrases">
 
@@ -35,7 +37,10 @@
             <a class="navbar-brand phrase-navbar-link" href="#">PhraseList</a>
         </div>
         <div ng-controller="userController">
-            <ul class="nav navbar-nav navbar-right">
+            <div id="user-section" class="nav navbar-nav navbar-right login-section-hide">
+                {{ name }} {{lastName}}
+            </div>
+            <ul id="login-section" class="nav navbar-nav navbar-right">
                 <li>
                     <a  data-toggle="modal" data-target="#signUp">
                         Sign Up

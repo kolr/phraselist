@@ -31,10 +31,34 @@ app.controller('userController', ['$scope', '$http', "User", function ($scope, $
     };
 
     $scope.getUser = function () {
-        var user = $http.get("/user/" + $scope.signInLogin).success(function(data){
+        var user;
+        $http.get("/user/" + $scope.signInLogin).success(function(data){
+            $('#logIn').modal('hide');
             console.log("user");
             console.log(data);
+            user = data;
+            initializeScopeVariables(user);
+            displayUser(user);
         });
     };
+
+    function displayUser(user) {
+        if(user != undefined) {
+            var list = document.getElementById("login-section");
+            list.classList.add("login-section-hide");
+
+            var userName = document.getElementById("user-section");
+            userName.classList.remove("login-section-hide");
+        }
+    }
+
+    function initializeScopeVariables(user) {
+        if(user != undefined) {
+            $scope.name = user.name;
+            $scope.lastName = user.lastname;
+            $scope.email = user.email;
+            $scope.login = user.login;
+        }
+    }
 
 }]);

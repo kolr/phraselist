@@ -81,3 +81,13 @@ div.error-box p {
     padding: 5px;
     border-radius: 5px;
 }
+
+.login-section-hide {
+    display: none;
+}
+
+#user-section {
+    padding: 15px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 15px;
+}
