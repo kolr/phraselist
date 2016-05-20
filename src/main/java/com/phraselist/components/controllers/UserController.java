@@ -37,11 +37,16 @@ public class UserController {
     public ResponseEntity<ClientUserBeanCommon> signIn(@PathVariable String login) {
         LOG.info("Input variables - " + login + ".");
         User user = userService.getUserByLogin(login);
+        ClientUserBeanCommon userBean = getClientUserBeanCommon(user);
+        return new ResponseEntity<ClientUserBeanCommon>(userBean, HttpStatus.OK);
+    }
+
+    private ClientUserBeanCommon getClientUserBeanCommon(User user) {
         ClientUserBeanCommon userBean = new ClientUserBeanCommon();
         userBean.setLogin(user.getLogin());
         userBean.setEmail(user.getEmail());
         userBean.setName(user.getName());
         userBean.setLastname(user.getLastName());
-        return new ResponseEntity<ClientUserBeanCommon>(userBean, HttpStatus.OK);
+        return userBean;
     }
 }

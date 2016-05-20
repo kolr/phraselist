@@ -4,6 +4,7 @@ import com.phraselist.components.services.user.LoginService;
 import com.phraselist.components.services.user.UserService;
 import com.phraselist.entity.user.User;
 import com.phraselist.exceptions.login.LoginException;
+import com.phraselist.model.beans.user.ClientUserBeanCommon;
 
 import javax.inject.Inject;
 
@@ -18,12 +19,12 @@ public class LoginServiceImpl implements LoginService {
     @Inject
     private UserService userService;
 
-    public User login(String login, String pass) throws LoginException {
+    public ClientUserBeanCommon login(String login, String pass) throws LoginException {
         User user;
         if (validation(login, pass)) {
             user = userService.getUserByLogin(login);
             if (passwordVerification(pass, user.getPass())) {
-                return user;
+                return getClientUserBeanCommon(user);
             } else {
                 throw new LoginException(String.format(PASSWORD_NOT_MATCH_MESSAGE, pass, login));
             }
@@ -38,5 +39,14 @@ public class LoginServiceImpl implements LoginService {
 
     private boolean passwordVerification(String pass, String storedPass) {
         return false;
+    }
+
+    private ClientUserBeanCommon getClientUserBeanCommon(User user) {
+        ClientUserBeanCommon userBean = new ClientUserBeanCommon();
+        userBean.setLogin(user.getLogin());
+        userBean.setEmail(user.getEmail());
+        userBean.setName(user.getName());
+        userBean.setLastname(user.getLastName());
+        return userBean;
     }
 }

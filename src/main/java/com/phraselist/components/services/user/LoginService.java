@@ -1,7 +1,7 @@
 package com.phraselist.components.services.user;
 
-import com.phraselist.entity.user.User;
 import com.phraselist.exceptions.login.LoginException;
+import com.phraselist.model.beans.user.ClientUserBeanCommon;
 
 /**
  * 20.05.2016
@@ -17,5 +17,5 @@ public interface LoginService {
      * @return user data.
      * @throws LoginException - if error while login occurred.
      */
-    User login(String login, String pass) throws LoginException;
+    ClientUserBeanCommon login(String login, String pass) throws LoginException;
 }
