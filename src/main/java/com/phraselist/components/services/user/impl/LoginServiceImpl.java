@@ -5,6 +5,7 @@ import com.phraselist.components.services.user.UserService;
 import com.phraselist.entity.user.User;
 import com.phraselist.exceptions.login.LoginException;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
+import com.phraselist.validation.Validator;
 
 import javax.inject.Inject;
 
@@ -34,11 +35,11 @@ public class LoginServiceImpl implements LoginService {
     }
 
     private boolean validation(String login, String password) {
-        return false;
+        return Validator.loginValidation(login) || Validator.passValidation(password);
     }
 
     private boolean passwordVerification(String pass, String storedPass) {
-        return false;
+        return pass.equals(storedPass);
     }
 
     private ClientUserBeanCommon getClientUserBeanCommon(User user) {
