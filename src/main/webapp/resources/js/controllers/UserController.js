@@ -39,6 +39,9 @@ app.controller('userController', ['$scope', '$http', "User", function ($scope, $
             user = data;
             initializeScopeVariables(user);
             displayUser(user);
+        }).error(function(){
+            $('#logIn').modal('hide');
+            console.log("An error has occurred.");
         });
     };
 
