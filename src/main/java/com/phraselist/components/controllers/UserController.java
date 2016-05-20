@@ -44,7 +44,7 @@ public class UserController {
             userBean = loginService.login(login, pass);
         } catch (Exception e) {
             LOG.error(e);
-            return new ResponseEntity<ClientUserBeanCommon>(HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<ClientUserBeanCommon>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<ClientUserBeanCommon>(userBean, HttpStatus.OK);
     }
