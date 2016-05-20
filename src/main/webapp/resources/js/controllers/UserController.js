@@ -32,7 +32,7 @@ app.controller('userController', ['$scope', '$http', "User", function ($scope, $
 
     $scope.getUser = function () {
         var user;
-        $http.get("/user/" + $scope.signInLogin).success(function(data){
+        $http.post("/user/" + $scope.signInLogin, $scope.signInPass).success(function(data){
             $('#logIn').modal('hide');
             console.log("user");
             console.log(data);

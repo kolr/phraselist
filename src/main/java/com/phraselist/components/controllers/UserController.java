@@ -38,7 +38,7 @@ public class UserController {
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "{login}", method = RequestMethod.GET)
+    @RequestMapping(value = "{login}", method = RequestMethod.POST)
     public ResponseEntity<ClientUserBeanCommon> signIn(@PathVariable String login, @RequestBody String pass) {
         LOG.info("Input variables - " + login + ".");
         ClientUserBeanCommon userBean = null;
