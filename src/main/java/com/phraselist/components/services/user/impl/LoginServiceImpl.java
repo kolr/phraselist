@@ -14,8 +14,8 @@ import javax.inject.Inject;
  * Created by Rodion.
  */
 public class LoginServiceImpl implements LoginService {
-    private static final String NOT_VALID_ERROR_MESSAGE = "Login \"%s%n\" or password \"%s%n\" does not valid.";
-    private static final String PASSWORD_NOT_MATCH_MESSAGE = "Password \"%s%n\" entered by \"%s%n\" does not match.";
+    private static final String NOT_VALID_ERROR_MESSAGE = "Login \"%s\" or password \"%s\" does not valid.";
+    private static final String PASSWORD_NOT_MATCH_MESSAGE = "Password \"%s\" entered by \"%s\" does not match.";
 
     @Inject
     private UserService userService;
@@ -35,7 +35,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     private boolean validation(String login, String password) {
-        return Validator.loginValidation(login) || Validator.passValidation(password);
+        return Validator.loginValidation(login) && Validator.passValidation(password);
     }
 
     private boolean passwordVerification(String pass, String storedPass) {
