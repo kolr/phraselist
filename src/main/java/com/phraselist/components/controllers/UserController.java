@@ -1,7 +1,9 @@
 package com.phraselist.components.controllers;
 
+import com.phraselist.components.services.user.LoginService;
 import com.phraselist.components.services.user.UserService;
 import com.phraselist.entity.user.User;
+import com.phraselist.exceptions.login.LoginException;
 import com.phraselist.model.beans.user.ClientUserBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
 import org.apache.log4j.Logger;
@@ -26,6 +28,9 @@ public class UserController {
     @Inject
     private UserService userService;
 
+    @Inject
+    private LoginService loginService;
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Object> createUser(@Valid @RequestBody ClientUserBean user) {
         userService.createUser(user);
@@ -34,19 +39,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "{login}", method = RequestMethod.GET)
-    public ResponseEntity<ClientUserBeanCommon> signIn(@PathVariable String login) {
+    public ResponseEntity<ClientUserBeanCommon> signIn(@PathVariable String login, @RequestBody String pass) {
         LOG.info("Input variables - " + login + ".");
-        User user = userService.getUserByLogin(login);
-        ClientUserBeanCommon userBean = getClientUserBeanCommon(user);
+        ClientUserBeanCommon userBean = null;
+        try {
+            userBean = loginService.login(login, pass);
+        } catch (LoginException e) {
+            LOG.error(e);
+        }
         return new ResponseEntity<ClientUserBeanCommon>(userBean, HttpStatus.OK);
-    }
-
-    private ClientUserBeanCommon getClientUserBeanCommon(User user) {
-        ClientUserBeanCommon userBean = new ClientUserBeanCommon();
-        userBean.setLogin(user.getLogin());
-        userBean.setEmail(user.getEmail());
-        userBean.setName(user.getName());
-        userBean.setLastname(user.getLastName());
-        return userBean;
     }
 }
