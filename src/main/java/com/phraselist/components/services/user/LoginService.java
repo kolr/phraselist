@@ -17,5 +17,5 @@ public interface LoginService {
      * @return user data.
      * @throws LoginException - if error while login occurred.
      */
-    ClientUserBeanCommon login(String login, String pass) throws LoginException;
+    ClientUserBeanCommon login(String login, String pass) throws Exception;
 }

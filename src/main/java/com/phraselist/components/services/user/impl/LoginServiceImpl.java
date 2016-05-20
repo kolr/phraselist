@@ -4,6 +4,7 @@ import com.phraselist.components.services.user.LoginService;
 import com.phraselist.components.services.user.UserService;
 import com.phraselist.entity.user.User;
 import com.phraselist.exceptions.login.LoginException;
+import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
 import com.phraselist.validation.Validator;
 
@@ -20,7 +21,7 @@ public class LoginServiceImpl implements LoginService {
     @Inject
     private UserService userService;
 
-    public ClientUserBeanCommon login(String login, String pass) throws LoginException {
+    public ClientUserBeanCommon login(String login, String pass) throws Exception {
         User user;
         if (validation(login, pass)) {
             user = userService.getUserByLogin(login);

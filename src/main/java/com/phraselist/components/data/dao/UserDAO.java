@@ -2,6 +2,8 @@ package com.phraselist.components.data.dao;
 
 import com.phraselist.components.data.mapper.UserMapper;
 import com.phraselist.entity.user.User;
+import com.phraselist.exceptions.login.UserException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.inject.Inject;
@@ -13,6 +15,7 @@ import java.util.Map;
  * Created by Rodion.
  */
 public class UserDAO {
+    private static final String USER_NOT_EXISTS = "User with login \"%s\" does not exists.";
 
     private NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -34,11 +37,16 @@ public class UserDAO {
         jdbcTemplate.update(query, namedParameters);
     }
 
-    public User getUser(String login) {
+    public User getUser(String login) throws UserException {
         String query = "SELECT * FROM USERS WHERE login=:login";
         Map namedParameters = new HashMap();
         namedParameters.put("login", login);
-        User user = jdbcTemplate.queryForObject(query, namedParameters, new UserMapper());
+        User user = null;
+        try {
+            user = jdbcTemplate.queryForObject(query, namedParameters, new UserMapper());
+        } catch (EmptyResultDataAccessException e) {
+            throw new UserException(String.format(USER_NOT_EXISTS, login));
+        }
         return user;
     }
 

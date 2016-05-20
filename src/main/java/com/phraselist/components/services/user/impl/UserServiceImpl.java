@@ -3,6 +3,7 @@ package com.phraselist.components.services.user.impl;
 import com.phraselist.components.data.dao.UserDAO;
 import com.phraselist.components.services.user.UserService;
 import com.phraselist.entity.user.User;
+import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.user.ClientUserBean;
 
 import javax.inject.Inject;
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    public User getUserByLogin(String login) {
+    public User getUserByLogin(String login) throws UserException{
         User user = userDAO.getUser(login);
         return user;
     }

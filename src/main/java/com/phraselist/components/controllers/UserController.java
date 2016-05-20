@@ -4,6 +4,7 @@ import com.phraselist.components.services.user.LoginService;
 import com.phraselist.components.services.user.UserService;
 import com.phraselist.entity.user.User;
 import com.phraselist.exceptions.login.LoginException;
+import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.user.ClientUserBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
 import org.apache.log4j.Logger;
@@ -44,7 +45,7 @@ public class UserController {
         ClientUserBeanCommon userBean = null;
         try {
             userBean = loginService.login(login, pass);
-        } catch (LoginException e) {
+        } catch (Exception e) {
             LOG.error(e);
         }
         return new ResponseEntity<ClientUserBeanCommon>(userBean, HttpStatus.OK);

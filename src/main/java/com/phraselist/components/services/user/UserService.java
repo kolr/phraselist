@@ -1,6 +1,7 @@
 package com.phraselist.components.services.user;
 
 import com.phraselist.entity.user.User;
+import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.user.ClientUserBean;
 
 /**
@@ -35,7 +36,7 @@ public interface UserService {
      * @param login - user's login.
      * @return - user.
      */
-    User getUserByLogin(String login);
+    User getUserByLogin(String login) throws UserException;
 
     /**
      * System retrieves user from database by its email to operate with it.
