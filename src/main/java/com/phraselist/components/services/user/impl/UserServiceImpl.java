@@ -34,8 +34,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public User getUserByLogin(String login) throws UserException{
-        User user = userDAO.getUser(login);
-        return user;
+        return userDAO.getUser(login);
     }
 
     public User getUserByEmail(String email) {
