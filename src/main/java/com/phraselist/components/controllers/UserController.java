@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -37,7 +38,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "{login}", method = RequestMethod.POST)
-    public ResponseEntity<ClientUserBeanCommon> signIn(@PathVariable String login, @RequestBody String pass) {
+    public ResponseEntity<ClientUserBeanCommon> signIn(@PathVariable String login, @RequestBody String pass, HttpServletRequest req) {
+        if (req.getSession().getAttribute("user") != null) {
+            LOG.info("The session variable had been returned.");
+            return new ResponseEntity<ClientUserBeanCommon>((ClientUserBeanCommon) req.getSession().getAttribute("user"), HttpStatus.OK);
+        }
         LOG.info("Input variables - " + login + ".");
         ClientUserBeanCommon userBean = null;
         try {
@@ -46,6 +51,8 @@ public class UserController {
             LOG.error(e);
             return new ResponseEntity<ClientUserBeanCommon>(HttpStatus.NOT_FOUND);
         }
+        req.getSession().setAttribute("user", userBean);
+        LOG.info("New user had been set up in session.");
         return new ResponseEntity<ClientUserBeanCommon>(userBean, HttpStatus.OK);
     }
 }

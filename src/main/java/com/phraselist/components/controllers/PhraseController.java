@@ -1,6 +1,7 @@
 package com.phraselist.components.controllers;
 
 import com.phraselist.components.data.dao.UserDAO;
+import com.phraselist.model.beans.user.ClientUserBeanCommon;
 import com.phraselist.storage.Storage;
 import com.phraselist.storage.Word;
 import org.apache.log4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -43,7 +45,13 @@ public class PhraseController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public List<Word> getListWord() {
+    public List<Word> getListWord(HttpServletRequest request) {
+        if (request.getSession().getAttribute("user") != null) {
+            ClientUserBeanCommon user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
+            LOG.info(String.format("Current user is %s %s.", user.getName(), user.getLastname()));
+        } else {
+            LOG.info("Guest is using this vocabulary.");
+        }
         return this.storage.getAll();
     }
 
