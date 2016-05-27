@@ -53,6 +53,8 @@ app.controller('userController', ['$scope', '$http', "User", function ($scope, $
             displayUser(user);
         }).error(function(){
             console.log("There is no registered user.");
+            var list = document.getElementById("login-section");
+            list.classList.remove("login-section-hide");
         });
     };
 

@@ -40,7 +40,7 @@
             <div id="user-section" class="nav navbar-nav navbar-right login-section-hide">
                 {{ name }} {{lastName}}
             </div>
-            <ul id="login-section" class="nav navbar-nav navbar-right">
+            <ul id="login-section" class="nav navbar-nav navbar-right login-section-hide">
                 <li>
                     <a  data-toggle="modal" data-target="#signUp">
                         Sign Up
