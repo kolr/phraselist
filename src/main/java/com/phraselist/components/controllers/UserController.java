@@ -55,4 +55,14 @@ public class UserController {
         LOG.info("New user had been set up in session.");
         return new ResponseEntity<ClientUserBeanCommon>(userBean, HttpStatus.OK);
     }
+
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<ClientUserBeanCommon> initializeUser(HttpServletRequest request) {
+        ClientUserBeanCommon user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
+        if(user != null) {
+            return new ResponseEntity<ClientUserBeanCommon>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<ClientUserBeanCommon>(HttpStatus.NOT_FOUND);
+    }
 }

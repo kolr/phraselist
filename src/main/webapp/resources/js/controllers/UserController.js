@@ -45,6 +45,11 @@ app.controller('userController', ['$scope', '$http', "User", function ($scope, $
         });
     };
 
+    var checkUser = function() {
+        var user;
+        
+    }
+
     function displayUser(user) {
         if(user != undefined) {
             var list = document.getElementById("login-section");
