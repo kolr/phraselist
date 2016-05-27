@@ -47,8 +47,16 @@ app.controller('userController', ['$scope', '$http', "User", function ($scope, $
 
     var checkUser = function() {
         var user;
-        
-    }
+        $http.get("/user").success(function(data){
+            user = data;
+            initializeScopeVariables(user);
+            displayUser(user);
+        }).error(function(){
+            console.log("There is no registered user.");
+        });
+    };
+
+    checkUser();
 
     function displayUser(user) {
         if(user != undefined) {
