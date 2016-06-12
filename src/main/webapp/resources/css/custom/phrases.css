@@ -3,7 +3,8 @@ div.list-manager {
 }
 
 .phrase-navbar {
-    background-color: #96E8F5;
+    background-image: url("../../img/header-back.png ");
+    /*background-color: #96E8F5;*/
     /*color: #ffffff;*/
 }
 
@@ -30,7 +31,8 @@ div.manager-button {
     padding-top: 10px;
     width: 100px;
     height: 35px;
-    background-color: #337ab7;
+    /*background-color: #337ab7;*/
+    background-color: #99e4c2;
     color: white;
     text-align: center;
 }
