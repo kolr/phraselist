@@ -28,14 +28,15 @@ public class ItemDAO {
 
     public List<ItemBean> getItems(String originalLanguage, String translationLanguage) {
         ItemMapper itemMapper = new ItemMapper();
-        String query = "SELECT i.id, u.login, ow.word, t.word, i.comment, i.date_of_creation, i.date_of_edition" +
-                " FROM items i, users u, original_words ow, translations t, original_languages ol, translated_languages tl" +
-                " WHERE ol.language=:originalLanguage AND tl.language=:translatedLanguage";
-        List<ItemBean> items = new ArrayList<ItemBean>();
+        String query = "SELECT i.id, u.login, ow.word, t.tword, i.comment, i.date_of_creation, i.date_of_edition" +
+                " FROM items i, users u, original_words ow, translations t, original_languages ol, translated_languages tl " +
+                "WHERE i.user_id=u.id AND i.original_id=ow.id AND i.translation_id=t.id AND i.original_language=ol.id " +
+                "AND i.translation_language=tl.id " +
+                "AND ol.language=:originalLanguage AND tl.tlanguage=:translatedLanguage AND u.login='kolr'";
         Map namedParameters = new HashMap();
         namedParameters.put("originalLanguage", originalLanguage);
         namedParameters.put("translatedLanguage", translationLanguage);
-        items = jdbcTemplate.query(query, namedParameters, itemMapper);
+        List<ItemBean>items = jdbcTemplate.query(query, namedParameters, itemMapper);
         return items;
     }
 

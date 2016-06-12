@@ -36,6 +36,7 @@
     </bean>
 
     <bean id="userDao" class="com.phraselist.components.data.dao.UserDAO"></bean>
+    <bean id="itemDao" class="com.phraselist.components.data.dao.ItemDAO"></bean>
     <bean id="userService" class="com.phraselist.components.services.user.impl.UserServiceImpl"></bean>
     <bean id="loginService" class="com.phraselist.components.services.user.impl.LoginServiceImpl"></bean>
 </beans>
