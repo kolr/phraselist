@@ -3,6 +3,7 @@ package com.phraselist.model.beans.db;
 /**
  * 13.06.2016
  * Created by Rodion.
+ * For tables called 'original_languages' and 'translated_languages'.
  */
 public class LanguageBean {
     private long id;
