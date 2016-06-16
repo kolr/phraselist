@@ -43,7 +43,7 @@ public class PhraseController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ItemBean> addWord(HttpServletRequest request,
-                                        @RequestBody Word word, @PathVariable String language) {
+                                            @RequestBody Word word, @PathVariable String language) {
         ItemBean item = new ItemBean();
         item.setForeign(word.getForeign());
         item.setTranslation(word.getTranslation());
@@ -64,10 +64,12 @@ public class PhraseController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public List<Word> getListWord(HttpServletRequest request) {
+    public List<ItemBean> getListWord(HttpServletRequest request, @PathVariable String language) {
+        ClientUserBeanCommon user = null;
         if (request.getSession().getAttribute("user") != null) {
-            ClientUserBeanCommon user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
+            user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
             LOG.info(String.format("Current user is %s %s.", user.getName(), user.getLastname()));
+            return this.itemDAO.getUsersItems(language, "russian", user.getLogin());
         } else {
             LOG.info("Guest is using this vocabulary.");
         }

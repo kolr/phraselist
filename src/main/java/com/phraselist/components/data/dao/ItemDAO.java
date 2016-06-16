@@ -38,10 +38,24 @@ public class ItemDAO {
                 " FROM items i, users u, original_words ow, translations t, original_languages ol, translated_languages tl " +
                 "WHERE i.user_id=u.id AND i.original_id=ow.id AND i.translation_id=t.id AND i.original_language=ol.id " +
                 "AND i.translation_language=tl.id " +
-                "AND ol.language=:originalLanguage AND tl.tlanguage=:translatedLanguage AND u.login='kolr'";
+                "AND ol.language=:originalLanguage AND tl.tlanguage=:translatedLanguage";
         Map namedParameters = new HashMap();
         namedParameters.put("originalLanguage", originalLanguage);
         namedParameters.put("translatedLanguage", translationLanguage);
+        return jdbcTemplate.query(query, namedParameters, itemMapper);
+    }
+
+    public List<ItemBean> getUsersItems(String originalLanguage, String translationLanguage, String login) {
+        ItemMapper itemMapper = new ItemMapper();
+        String query = "SELECT i.id, u.login, ow.word, t.tword, i.comment, i.date_of_creation, i.date_of_edition" +
+                " FROM items i, users u, original_words ow, translations t, original_languages ol, translated_languages tl " +
+                "WHERE i.user_id=u.id AND i.original_id=ow.id AND i.translation_id=t.id AND i.original_language=ol.id " +
+                "AND i.translation_language=tl.id " +
+                "AND ol.language=:originalLanguage AND tl.tlanguage=:translatedLanguage AND u.login=:login";
+        Map namedParameters = new HashMap();
+        namedParameters.put("originalLanguage", originalLanguage);
+        namedParameters.put("translatedLanguage", translationLanguage);
+        namedParameters.put("login", login);
         return jdbcTemplate.query(query, namedParameters, itemMapper);
     }
 
