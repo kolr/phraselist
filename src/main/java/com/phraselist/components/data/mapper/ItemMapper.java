@@ -16,8 +16,8 @@ public class ItemMapper implements RowMapper<ItemBean> {
         ItemBean itemBean = new ItemBean();
         itemBean.setId(resultSet.getLong("id"));
         itemBean.setLogin(resultSet.getString("login"));
-        itemBean.setOriginalWord(resultSet.getString("word"));
-        itemBean.setTranslatedWord(resultSet.getString("tword"));
+        itemBean.setForeign(resultSet.getString("word"));
+        itemBean.setTranslation(resultSet.getString("tword"));
         itemBean.setComment(resultSet.getString("comment"));
         itemBean.setDateOfCreation(resultSet.getDate("date_of_creation"));
         itemBean.setDateOfEdition(resultSet.getDate("date_of_edition"));

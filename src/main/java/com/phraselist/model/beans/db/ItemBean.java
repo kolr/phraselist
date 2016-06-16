@@ -9,8 +9,8 @@ import java.util.Date;
 public class ItemBean {
     private long id;
     private String login;
-    private String originalWord;
-    private String translatedWord;
+    private String foreign;
+    private String translation;
     private String comment;
     private Date dateOfCreation;
     private Date dateOfEdition;
@@ -31,20 +31,20 @@ public class ItemBean {
         this.login = login;
     }
 
-    public String getOriginalWord() {
-        return originalWord;
+    public String getForeign() {
+        return foreign;
     }
 
-    public void setOriginalWord(String originalWord) {
-        this.originalWord = originalWord;
+    public void setForeign(String foreign) {
+        this.foreign = foreign;
     }
 
-    public String getTranslatedWord() {
-        return translatedWord;
+    public String getTranslation() {
+        return translation;
     }
 
-    public void setTranslatedWord(String translatedWord) {
-        this.translatedWord = translatedWord;
+    public void setTranslation(String translation) {
+        this.translation = translation;
     }
 
     public String getComment() {

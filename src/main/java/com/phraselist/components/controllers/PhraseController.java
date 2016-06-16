@@ -2,7 +2,6 @@ package com.phraselist.components.controllers;
 
 import com.phraselist.components.data.dao.ItemDAO;
 import com.phraselist.components.data.dao.UserDAO;
-import com.phraselist.entity.user.User;
 import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.db.ItemBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
@@ -43,15 +42,11 @@ public class PhraseController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Word> addWord(HttpServletRequest request,
+    public ResponseEntity<ItemBean> addWord(HttpServletRequest request,
                                         @RequestBody Word word, @PathVariable String language) {
-        LOG.info(language);
-        word.setId(Word.generateId());
-        this.storage.add(word);
-
         ItemBean item = new ItemBean();
-        item.setOriginalWord(word.getForeign());
-        item.setTranslatedWord(word.getTranslation());
+        item.setForeign(word.getForeign());
+        item.setTranslation(word.getTranslation());
         ClientUserBeanCommon user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
         item.setLogin(user.getLogin());
         item.setComment("none");
@@ -63,7 +58,7 @@ public class PhraseController {
             LOG.error(ex);
         }
 
-        return new ResponseEntity<Word>(word, HttpStatus.OK);
+        return new ResponseEntity<ItemBean>(item, HttpStatus.OK);
     }
 
 

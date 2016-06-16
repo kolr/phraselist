@@ -6,12 +6,11 @@ import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.db.ItemBean;
 import com.phraselist.model.beans.db.LanguageBean;
 import com.phraselist.model.beans.db.WordBean;
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +20,7 @@ import java.util.Map;
  * Created by Rodion.
  */
 public class ItemDAO {
-    private static final Logger LOG = Logger.getLogger(ItemDAO.class);
+//    private static final Logger LOG = Logger.getLogger(ItemDAO.class);
 
     private NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -43,14 +42,13 @@ public class ItemDAO {
         Map namedParameters = new HashMap();
         namedParameters.put("originalLanguage", originalLanguage);
         namedParameters.put("translatedLanguage", translationLanguage);
-        List<ItemBean> items = jdbcTemplate.query(query, namedParameters, itemMapper);
-        return items;
+        return jdbcTemplate.query(query, namedParameters, itemMapper);
     }
 
     private LanguageBean putTranslatedLanguage(String language) {
         String getQuery = "SELECT * from translated_languages WHERE tlanguage=:tlanguage";
         String addQuery = "INSERT into translated_languages VALUES(default, :tlanguage)";
-        LanguageBean languageBean = null;
+        LanguageBean languageBean;
         Map namedParameters = new HashMap();
         namedParameters.put("tlanguage", language);
         try {
@@ -65,7 +63,7 @@ public class ItemDAO {
     private LanguageBean putOriginalLanguage(String language) {
         String getQuery = "SELECT * from original_languages WHERE language=:language";
         String addQuery = "INSERT into original_languages VALUES(default, :language)";
-        LanguageBean languageBean = null;
+        LanguageBean languageBean;
         Map namedParameters = new HashMap();
         namedParameters.put("language", language);
         try {
@@ -80,7 +78,7 @@ public class ItemDAO {
     private WordBean putTranslatedWord(String word) {
         String getQuery = "SELECT * from translations WHERE tword=:tword";
         String addQuery = "INSERT into translations VALUES(default, :tword)";
-        WordBean wordBean = null;
+        WordBean wordBean;
         Map namedParameters = new HashMap();
         namedParameters.put("tword", word);
         try {
@@ -95,7 +93,7 @@ public class ItemDAO {
     private WordBean putOriginalWord(String word) {
         String getQuery = "SELECT * from original_words WHERE word=:word";
         String addQuery = "INSERT into original_words VALUES(default, :word)";
-        WordBean wordBean = null;
+        WordBean wordBean;
         Map namedParameters = new HashMap();
         namedParameters.put("word", word);
         try {
@@ -110,8 +108,8 @@ public class ItemDAO {
     public void addItem(ItemBean item, String originalLanguage, String translatedLanguage) throws UserException {
         LanguageBean oLanguage = putOriginalLanguage(originalLanguage);
         LanguageBean tLanguage = putTranslatedLanguage(translatedLanguage);
-        WordBean oWord = putOriginalWord(item.getOriginalWord());
-        WordBean tWord = putTranslatedWord(item.getTranslatedWord());
+        WordBean oWord = putOriginalWord(item.getForeign());
+        WordBean tWord = putTranslatedWord(item.getTranslation());
         User user = userDAO.getUser(item.getLogin());
         String query = "INSERT into ITEMS VALUES(default, :user, :oWord, :tWord, :comment, :dateCr, :dateEd, :oLang, :tLang)";
         Map namedParameters = new HashMap();
