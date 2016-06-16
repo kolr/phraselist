@@ -47,100 +47,72 @@ public class ItemDAO {
         return items;
     }
 
-    public void addTranslatedLanguage(String language) {
-        String query = "INSERT into translated_languages VALUES(default, :tlanguage)";
-        addLanguage(language, query);
-    }
-
-    public void addOriginalLanguage(String language) {
-        String query = "INSERT into original_languages VALUES(default, :language)";
-        addLanguage(language, query);
-    }
-
-    private void addLanguage(String language, String query) {
+    private LanguageBean putTranslatedLanguage(String language) {
+        String getQuery = "SELECT * from translated_languages WHERE tlanguage=:tlanguage";
+        String addQuery = "INSERT into translated_languages VALUES(default, :tlanguage)";
+        LanguageBean languageBean = null;
         Map namedParameters = new HashMap();
-        namedParameters.put("language", language);
-        jdbcTemplate.update(query, namedParameters);
-    }
-
-    public LanguageBean getOriginalLanguage(String language) {
-        System.out.println("Language: " + language);
-        String query = "SELECT * from original_languages WHERE language=:language";
-        Map namedParameters = new HashMap();
-        namedParameters.put("language", language);
-        LanguageBean languageBean = jdbcTemplate.queryForObject(query, namedParameters, new LanguageMapper());
+        namedParameters.put("tlanguage", language);
+        try {
+            languageBean = jdbcTemplate.queryForObject(getQuery, namedParameters, new TLanguageMapper());
+        } catch (EmptyResultDataAccessException ex) {
+            jdbcTemplate.update(addQuery, namedParameters);
+            languageBean = jdbcTemplate.queryForObject(getQuery, namedParameters, new TLanguageMapper());
+        }
         return languageBean;
     }
 
-    public LanguageBean getTranslatedLanguage(String language) {
-        String query = "SELECT * from translated_languages WHERE tlanguage=:language";
+    private LanguageBean putOriginalLanguage(String language) {
+        String getQuery = "SELECT * from original_languages WHERE language=:language";
+        String addQuery = "INSERT into original_languages VALUES(default, :language)";
+        LanguageBean languageBean = null;
         Map namedParameters = new HashMap();
         namedParameters.put("language", language);
-        LanguageBean languageBean = jdbcTemplate.queryForObject(query, namedParameters, new TLanguageMapper());
+        try {
+            languageBean = jdbcTemplate.queryForObject(getQuery, namedParameters, new LanguageMapper());
+        } catch (EmptyResultDataAccessException ex) {
+            jdbcTemplate.update(addQuery, namedParameters);
+            languageBean = jdbcTemplate.queryForObject(getQuery, namedParameters, new LanguageMapper());
+        }
         return languageBean;
     }
 
-    public void addTranslatedWord(String word) {
-        String query = "INSERT into translations VALUES(default, :tword)";
+    private WordBean putTranslatedWord(String word) {
+        String getQuery = "SELECT * from translations WHERE tword=:tword";
+        String addQuery = "INSERT into translations VALUES(default, :tword)";
+        WordBean wordBean = null;
         Map namedParameters = new HashMap();
         namedParameters.put("tword", word);
-        jdbcTemplate.update(query, namedParameters);
-    }
-
-    public void addOriginalWord(String word) {
-        String query = "INSERT into original_words VALUES(default, :word)";
-        Map namedParameters = new HashMap();
-        namedParameters.put("word", word);
-        jdbcTemplate.update(query, namedParameters);
-    }
-
-    public WordBean getOriginalWord(String word) {
-        String query = "SELECT * from original_words WHERE word=:word";
-        Map namedParameters = new HashMap();
-        namedParameters.put("word", word);
-        WordBean wordBean = null;
         try {
-            wordBean = jdbcTemplate.queryForObject(query, namedParameters, new WordMapper());
+            wordBean = jdbcTemplate.queryForObject(getQuery, namedParameters, new TWordMapper());
         } catch (EmptyResultDataAccessException ex) {
-            LOG.info(ex);
+            jdbcTemplate.update(addQuery, namedParameters);
+            wordBean = jdbcTemplate.queryForObject(getQuery, namedParameters, new TWordMapper());
         }
         return wordBean;
     }
 
-    public WordBean getTranslatedWord(String word) {
-        String query = "SELECT * from translations WHERE tword=:word";
+    private WordBean putOriginalWord(String word) {
+        String getQuery = "SELECT * from original_words WHERE word=:word";
+        String addQuery = "INSERT into original_words VALUES(default, :word)";
+        WordBean wordBean = null;
         Map namedParameters = new HashMap();
         namedParameters.put("word", word);
-        WordBean wordBean = null;
         try {
-            wordBean = jdbcTemplate.queryForObject(query, namedParameters, new TWordMapper());
+            wordBean = jdbcTemplate.queryForObject(getQuery, namedParameters, new WordMapper());
         } catch (EmptyResultDataAccessException ex) {
-            LOG.info(ex);
+            jdbcTemplate.update(addQuery, namedParameters);
+            wordBean = jdbcTemplate.queryForObject(getQuery, namedParameters, new WordMapper());
         }
         return wordBean;
     }
 
     public void addItem(ItemBean item, String originalLanguage, String translatedLanguage) throws UserException {
-        LanguageBean oLanguage = this.getOriginalLanguage(originalLanguage);
-        if (oLanguage == null) {
-            this.addOriginalLanguage(originalLanguage);
-        }
-        LanguageBean tLanguage = this.getTranslatedLanguage(translatedLanguage);
-        if (tLanguage == null) {
-            this.addTranslatedLanguage(translatedLanguage);
-        }
-        WordBean oWord = this.getOriginalWord(item.getOriginalWord());
-        if (oWord == null) {
-            this.addOriginalWord(item.getOriginalWord());
-            oWord = this.getOriginalWord(item.getOriginalWord());
-        }
-        WordBean tWord = this.getTranslatedWord(item.getTranslatedWord());
-        if (tWord == null) {
-            this.addTranslatedWord(item.getTranslatedWord());
-            tWord = this.getTranslatedWord(item.getTranslatedWord());
-        }
+        LanguageBean oLanguage = putOriginalLanguage(originalLanguage);
+        LanguageBean tLanguage = putTranslatedLanguage(translatedLanguage);
+        WordBean oWord = putOriginalWord(item.getOriginalWord());
+        WordBean tWord = putTranslatedWord(item.getTranslatedWord());
         User user = userDAO.getUser(item.getLogin());
-
         String query = "INSERT into ITEMS VALUES(default, :user, :oWord, :tWord, :comment, :dateCr, :dateEd, :oLang, :tLang)";
         Map namedParameters = new HashMap();
         namedParameters.put("user", user.getId());
