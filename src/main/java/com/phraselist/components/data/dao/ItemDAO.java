@@ -6,6 +6,7 @@ import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.db.ItemBean;
 import com.phraselist.model.beans.db.LanguageBean;
 import com.phraselist.model.beans.db.WordBean;
+import org.apache.log4j.Logger;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -20,7 +21,12 @@ import java.util.Map;
  * Created by Rodion.
  */
 public class ItemDAO {
+    private static final Logger LOG = Logger.getLogger(ItemDAO.class);
+
     private NamedParameterJdbcTemplate jdbcTemplate;
+
+    @Inject
+    private UserDAO userDAO;
 
     @Inject
     public ItemDAO(NamedParameterJdbcTemplate jdbcTemplate) {
@@ -41,24 +47,25 @@ public class ItemDAO {
         return items;
     }
 
-    public void addTranslatedLanguage(LanguageBean languageBean) {
+    public void addTranslatedLanguage(String language) {
         String query = "INSERT into translated_languages VALUES(default, :tlanguage)";
-        addLanguage(languageBean, query);
+        addLanguage(language, query);
     }
 
-    public void addOriginalLanguage(LanguageBean languageBean) {
+    public void addOriginalLanguage(String language) {
         String query = "INSERT into original_languages VALUES(default, :language)";
-        addLanguage(languageBean, query);
+        addLanguage(language, query);
     }
 
-    private void addLanguage(LanguageBean languageBean, String query) {
+    private void addLanguage(String language, String query) {
         Map namedParameters = new HashMap();
-        namedParameters.put("language", languageBean.getLanguage());
+        namedParameters.put("language", language);
         jdbcTemplate.update(query, namedParameters);
     }
 
     public LanguageBean getOriginalLanguage(String language) {
-        String query = "SELECT from original_languages WHERE language=:language";
+        System.out.println("Language: " + language);
+        String query = "SELECT * from original_languages WHERE language=:language";
         Map namedParameters = new HashMap();
         namedParameters.put("language", language);
         LanguageBean languageBean = jdbcTemplate.queryForObject(query, namedParameters, new LanguageMapper());
@@ -66,43 +73,85 @@ public class ItemDAO {
     }
 
     public LanguageBean getTranslatedLanguage(String language) {
-        String query = "SELECT from translated_languages WHERE language=:language";
+        String query = "SELECT * from translated_languages WHERE tlanguage=:language";
         Map namedParameters = new HashMap();
         namedParameters.put("language", language);
         LanguageBean languageBean = jdbcTemplate.queryForObject(query, namedParameters, new TLanguageMapper());
         return languageBean;
     }
 
-    public void addTranslatedWord(WordBean wordBean) {
-        String query = "INSERT into translated_languages VALUES(default, :tlanguage)";
-        addWord(wordBean, query);
-    }
-
-    public void addOriginalWord(WordBean wordBean) {
-        String query = "INSERT into original_languages VALUES(default, :language)";
-        addWord(wordBean, query);
-    }
-
-    private void addWord(WordBean wordBean, String query) {
+    public void addTranslatedWord(String word) {
+        String query = "INSERT into translations VALUES(default, :tword)";
         Map namedParameters = new HashMap();
-        namedParameters.put("language", wordBean.getWord());
+        namedParameters.put("tword", word);
+        jdbcTemplate.update(query, namedParameters);
+    }
+
+    public void addOriginalWord(String word) {
+        String query = "INSERT into original_words VALUES(default, :word)";
+        Map namedParameters = new HashMap();
+        namedParameters.put("word", word);
         jdbcTemplate.update(query, namedParameters);
     }
 
     public WordBean getOriginalWord(String word) {
-        String query = "SELECT from original_words WHERE word=:word";
+        String query = "SELECT * from original_words WHERE word=:word";
         Map namedParameters = new HashMap();
         namedParameters.put("word", word);
-        WordBean wordBean = jdbcTemplate.queryForObject(query, namedParameters, new WordMapper());
+        WordBean wordBean = null;
+        try {
+            wordBean = jdbcTemplate.queryForObject(query, namedParameters, new WordMapper());
+        } catch (EmptyResultDataAccessException ex) {
+            LOG.info(ex);
+        }
         return wordBean;
     }
 
     public WordBean getTranslatedWord(String word) {
-        String query = "SELECT from translations WHERE tword=:word";
+        String query = "SELECT * from translations WHERE tword=:word";
         Map namedParameters = new HashMap();
         namedParameters.put("word", word);
-        WordBean wordBean = jdbcTemplate.queryForObject(query, namedParameters, new TWordMapper());
+        WordBean wordBean = null;
+        try {
+            wordBean = jdbcTemplate.queryForObject(query, namedParameters, new TWordMapper());
+        } catch (EmptyResultDataAccessException ex) {
+            LOG.info(ex);
+        }
         return wordBean;
+    }
+
+    public void addItem(ItemBean item, String originalLanguage, String translatedLanguage) throws UserException {
+        LanguageBean oLanguage = this.getOriginalLanguage(originalLanguage);
+        if (oLanguage == null) {
+            this.addOriginalLanguage(originalLanguage);
+        }
+        LanguageBean tLanguage = this.getTranslatedLanguage(translatedLanguage);
+        if (tLanguage == null) {
+            this.addTranslatedLanguage(translatedLanguage);
+        }
+        WordBean oWord = this.getOriginalWord(item.getOriginalWord());
+        if (oWord == null) {
+            this.addOriginalWord(item.getOriginalWord());
+            oWord = this.getOriginalWord(item.getOriginalWord());
+        }
+        WordBean tWord = this.getTranslatedWord(item.getTranslatedWord());
+        if (tWord == null) {
+            this.addTranslatedWord(item.getTranslatedWord());
+            tWord = this.getTranslatedWord(item.getTranslatedWord());
+        }
+        User user = userDAO.getUser(item.getLogin());
+
+        String query = "INSERT into ITEMS VALUES(default, :user, :oWord, :tWord, :comment, :dateCr, :dateEd, :oLang, :tLang)";
+        Map namedParameters = new HashMap();
+        namedParameters.put("user", user.getId());
+        namedParameters.put("oWord", oWord.getId());
+        namedParameters.put("tWord", tWord.getId());
+        namedParameters.put("comment", item.getComment());
+        namedParameters.put("dateCr", item.getDateOfCreation());
+        namedParameters.put("dateEd", item.getDateOfEdition());
+        namedParameters.put("oLang", oLanguage.getId());
+        namedParameters.put("tLang", tLanguage.getId());
+        jdbcTemplate.update(query, namedParameters);
     }
 
 }

@@ -2,6 +2,8 @@ package com.phraselist.components.controllers;
 
 import com.phraselist.components.data.dao.ItemDAO;
 import com.phraselist.components.data.dao.UserDAO;
+import com.phraselist.entity.user.User;
+import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.db.ItemBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
 import com.phraselist.storage.Storage;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,10 +43,26 @@ public class PhraseController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Word> addWord(@RequestBody Word word, @PathVariable String language) {
+    public ResponseEntity<Word> addWord(HttpServletRequest request,
+                                        @RequestBody Word word, @PathVariable String language) {
         LOG.info(language);
         word.setId(Word.generateId());
         this.storage.add(word);
+
+        ItemBean item = new ItemBean();
+        item.setOriginalWord(word.getForeign());
+        item.setTranslatedWord(word.getTranslation());
+        ClientUserBeanCommon user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
+        item.setLogin(user.getLogin());
+        item.setComment("none");
+        item.setDateOfCreation(new Date());
+        item.setDateOfEdition(new Date());
+        try {
+            itemDAO.addItem(item, language, "russian");
+        } catch (UserException ex) {
+            LOG.error(ex);
+        }
+
         return new ResponseEntity<Word>(word, HttpStatus.OK);
     }
 
