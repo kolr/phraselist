@@ -6,7 +6,7 @@ app.factory("User", function ($resource) {
     return $resource("user");
 });
 
-app.controller('userController', ['$scope', '$http', "User", function ($scope, $http, User) {
+app.controller('userController', ['$scope', '$http', "User", "$rootScope", function ($scope, $http, User, $rootScope) {
     $scope.name;
     $scope.lastName;
     $scope.email;
@@ -39,10 +39,11 @@ app.controller('userController', ['$scope', '$http', "User", function ($scope, $
             user = data;
             initializeScopeVariables(user);
             displayUser(user);
+            $rootScope.$emit("CallUpdateAfterLogin", {});
         }).error(function () {
             $('#logInModal').modal('hide');
             console.log("An error has occurred.");
-        });
+        })
     };
 
     var checkUser = function () {

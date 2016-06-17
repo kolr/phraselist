@@ -2,11 +2,21 @@ app.factory("Word", function ($resource) {
     return $resource(":language/phrases", {language: '@language'});
 });
 
-app.controller('TableController', ['$scope', '$http', "Word", function ($scope, $http, Word) {
+app.controller('TableController', ['$scope', '$http', "Word", "$rootScope", function ($scope, $http, Word, $rootScope) {
     $scope.language = 'english';
     $scope.words = [];
     var url = function () {
         return {language: $scope.language || 'english'};
+    };
+
+    $rootScope.$on("CallUpdateAfterLogin", function () {
+        $scope.updateAfterLogin();
+    })
+
+    $scope.updateAfterLogin = function () {
+        $scope.words = Word.query(url());
+        enablingDeleteButton();
+        displayEnabling();
     };
 
     var update = function (res) {
@@ -18,6 +28,9 @@ app.controller('TableController', ['$scope', '$http', "Word", function ($scope, 
         enablingDeleteButton();
         displayEnabling();
     };
+
+    // app.prototype.
+
 
     var updateOnDelete = function (res) {
         var deletedID = res.data;
