@@ -25,7 +25,7 @@
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/phraselist"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/phraselist?characterEncoding=UTF-8"/>
         <property name="username" value="root"/>
         <property name="password" value="energystar"/>
     </bean>
@@ -35,8 +35,8 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <bean id="userDao" class="com.phraselist.components.data.dao.UserDAO"></bean>
-    <bean id="itemDao" class="com.phraselist.components.data.dao.ItemDAO"></bean>
-    <bean id="userService" class="com.phraselist.components.services.user.impl.UserServiceImpl"></bean>
-    <bean id="loginService" class="com.phraselist.components.services.user.impl.LoginServiceImpl"></bean>
+    <bean id="userDao" class="com.phraselist.components.data.dao.UserDAO"/>
+    <bean id="itemDao" class="com.phraselist.components.data.dao.ItemDAO"/>
+    <bean id="userService" class="com.phraselist.components.services.user.impl.UserServiceImpl"/>
+    <bean id="loginService" class="com.phraselist.components.services.user.impl.LoginServiceImpl"/>
 </beans>
