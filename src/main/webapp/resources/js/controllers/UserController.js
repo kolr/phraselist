@@ -33,14 +33,14 @@ app.controller('userController', ['$scope', '$http', "User", function ($scope, $
     $scope.getUser = function () {
         var user;
         $http.post("/user/" + $scope.signInLogin, $scope.signInPass).success(function (data) {
-            $('#logIn').modal('hide');
+            $('#logInModal').modal('hide');
             console.log("user");
             console.log(data);
             user = data;
             initializeScopeVariables(user);
             displayUser(user);
         }).error(function () {
-            $('#logIn').modal('hide');
+            $('#logInModal').modal('hide');
             console.log("An error has occurred.");
         });
     };
@@ -57,7 +57,7 @@ app.controller('userController', ['$scope', '$http', "User", function ($scope, $
             list.classList.remove("login-section-hide");
         });
     };
-    
+
     checkUser();
 
     function displayUser(user) {
