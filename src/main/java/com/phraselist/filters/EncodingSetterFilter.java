@@ -15,7 +15,7 @@ public class EncodingSetterFilter implements Filter {
 
     private static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
 
-    private static final String DEFAULT_ENCODING = "cp1251";
+    private static final String DEFAULT_ENCODING = "UTF-8";
 
     private static final String ENCODING_INIT_PARAMETER_NAME = "encoding";
 
