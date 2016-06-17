@@ -19,9 +19,11 @@
     <script src="resources/js/App.js"></script>
     <script src="resources/js/controllers/tableController.js"></script>
     <script src="resources/js/controllers/UserController.js"></script>
-    <script src="resources/js/PhrasesManager.js"></script>
+
 </head>
 <body ng-app="Phrases">
+
+<script src="resources/js/PhrasesManager.js"></script>
 
 <nav class="navbar navbar-default">
     <div class="container-fluid phrase-navbar">
@@ -42,12 +44,12 @@
             </div>
             <ul id="login-section" class="nav navbar-nav navbar-right login-section-hide">
                 <li>
-                    <a  data-toggle="modal" data-target="#signUp">
+                    <a data-toggle="modal" data-target="#signUp">
                         Sign Up
                     </a>
                 </li>
                 <li>
-                    <a  data-toggle="modal" data-target="#logIn">
+                    <a id="logInButton" data-toggle="modal" data-target="#logInModal">
                         Log In
                     </a>
                 </li>
@@ -64,7 +66,7 @@
                 </li>
             </ul>
             <!-- Modal -->
-            <div class="modal fade" id="logIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -73,20 +75,24 @@
                             <h4 class="modal-title" id="myModalLabel">Sign In</h4>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form id="login-form">
                                 <div class="form-group">
                                     <label for="exampleInputLogin1">Login</label>
-                                    <input type="text" class="form-control" id="exampleInputLogin1" ng-model="signInLogin" placeholder="Login">
+                                    <input type="text" class="form-control" id="exampleInputLogin1"
+                                           ng-model="signInLogin" placeholder="Login">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" ng-model="signInPass" placeholder="Password">
+                                    <input type="password" class="form-control" id="exampleInputPassword1"
+                                           ng-model="signInPass" placeholder="Password">
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" ng-click="getUser()">Log In</button>
+                            <button id="login-modal-button" type="button" class="btn btn-primary" ng-click="getUser()">
+                                Log In
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -106,29 +112,39 @@
                                 <div class="col-md-12">
                                     <div class="form-group col-md-6">
                                         <label for="inputName1">Name</label>
-                                        <input type="text" class="form-control" id="inputName1" ng-model="signUpName" placeholder="Name">
-                                        <div class="error-box"><p class="bg-danger error-hidden">More than 2 symbols</p></div>
+                                        <input type="text" class="form-control" id="inputName1" ng-model="signUpName"
+                                               placeholder="Name">
+                                        <div class="error-box"><p class="bg-danger error-hidden">More than 2 symbols</p>
+                                        </div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="inputLastname1">Lastname</label>
-                                        <input type="text" class="form-control" id="inputLastname1" ng-model="signUpLastname" placeholder="Lastname">
-                                        <div class="error-box"><p class="bg-danger error-hidden">More than 2 symbols</p></div>
+                                        <input type="text" class="form-control" id="inputLastname1"
+                                               ng-model="signUpLastname" placeholder="Lastname">
+                                        <div class="error-box"><p class="bg-danger error-hidden">More than 2 symbols</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputLogin1">Login</label>
-                                    <input type="text" class="form-control" id="inputLogin1" ng-model="signUpLogin" placeholder="Login">
-                                    <div class="error-box"><p class="bg-danger error-hidden">More than 2 symbols, and should be unique</p></div>
+                                    <input type="text" class="form-control" id="inputLogin1" ng-model="signUpLogin"
+                                           placeholder="Login">
+                                    <div class="error-box"><p class="bg-danger error-hidden">More than 2 symbols, and
+                                        should be unique</p></div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="inputEmail1" ng-model="signUpEmail" placeholder="Email">
-                                    <div class="error-box"><p class="bg-danger error-hidden">Seems like it is not email address</p></div>
+                                    <input type="email" class="form-control" id="inputEmail1" ng-model="signUpEmail"
+                                           placeholder="Email">
+                                    <div class="error-box"><p class="bg-danger error-hidden">Seems like it is not email
+                                        address</p></div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="inputPassword1" ng-model="signUpPassword" placeholder="Password">
-                                    <div class="error-box"><p class="bg-danger error-hidden">More than 8 symbols</p></div>
+                                    <input type="password" class="form-control" id="inputPassword1"
+                                           ng-model="signUpPassword" placeholder="Password">
+                                    <div class="error-box"><p class="bg-danger error-hidden">More than 8 symbols</p>
+                                    </div>
                                 </div>
                             </form>
                         </div>

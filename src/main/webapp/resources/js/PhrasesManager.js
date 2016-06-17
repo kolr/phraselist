@@ -58,7 +58,7 @@ function displayEnabling() {
 
 // Validation user credentials
 
-document.getElementsByTagName("input").onchange = function(event) {
+document.getElementsByTagName("input").onchange = function (event) {
     console.log("changed");
 }
 
@@ -73,4 +73,22 @@ function UserRegistrationValidator(login, email, name, lastname, password) {
     // }
 };
 
+
 var userRegistrationValidator = new UserRegistrationValidator();
+
+//User Section
+
+// window.onload = function () {
+//     $('#logInModal').on('shown.bs.modal', function () {
+//         console.log("Form has been opened.");
+//         var loginForm = document.getElementById('login-form');
+//         loginForm.onkeydown = function (e) {
+//             console.log("Key has been pressed.");
+//             if (e.keyCode == 13) {
+//                 getUserByEnter();
+//             }
+//         }
+//     });
+// }
+
+

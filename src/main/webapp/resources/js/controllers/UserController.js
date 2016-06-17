@@ -32,36 +32,36 @@ app.controller('userController', ['$scope', '$http', "User", function ($scope, $
 
     $scope.getUser = function () {
         var user;
-        $http.post("/user/" + $scope.signInLogin, $scope.signInPass).success(function(data){
+        $http.post("/user/" + $scope.signInLogin, $scope.signInPass).success(function (data) {
             $('#logIn').modal('hide');
             console.log("user");
             console.log(data);
             user = data;
             initializeScopeVariables(user);
             displayUser(user);
-        }).error(function(){
+        }).error(function () {
             $('#logIn').modal('hide');
             console.log("An error has occurred.");
         });
     };
 
-    var checkUser = function() {
+    var checkUser = function () {
         var user;
-        $http.get("/user").success(function(data){
+        $http.get("/user").success(function (data) {
             user = data;
             initializeScopeVariables(user);
             displayUser(user);
-        }).error(function(){
+        }).error(function () {
             console.log("There is no registered user.");
             var list = document.getElementById("login-section");
             list.classList.remove("login-section-hide");
         });
     };
-
+    
     checkUser();
 
     function displayUser(user) {
-        if(user != undefined) {
+        if (user != undefined) {
             var list = document.getElementById("login-section");
             list.classList.add("login-section-hide");
 
@@ -71,7 +71,7 @@ app.controller('userController', ['$scope', '$http', "User", function ($scope, $
     }
 
     function initializeScopeVariables(user) {
-        if(user != undefined) {
+        if (user != undefined) {
             $scope.name = user.name;
             $scope.lastName = user.lastname;
             $scope.email = user.email;
@@ -80,3 +80,4 @@ app.controller('userController', ['$scope', '$http', "User", function ($scope, $
     }
 
 }]);
+
