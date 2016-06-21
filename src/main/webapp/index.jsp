@@ -13,8 +13,8 @@
     <script src="resources/js/angular/angular.min.js"></script>
     <script src="resources/js/angular/angular-resource.js"></script>
 
-    <%--<script src="resources/js/jquary/jquery-1.12.3.min.js"></script>--%>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="resources/js/jquery/jquery.min.js"></script>
+    <%--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>--%>
     <script src="resources/js/bootstrap/bootstrap.min.js"></script>
     <script src="resources/js/App.js"></script>
     <script src="resources/js/controllers/tableController.js"></script>
