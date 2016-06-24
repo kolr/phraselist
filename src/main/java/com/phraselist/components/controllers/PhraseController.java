@@ -85,7 +85,7 @@ public class PhraseController {
     @RequestMapping(value = "/all", method = RequestMethod.POST)
     public ResponseEntity<String> deleteWords(@RequestBody List<String> markedItems) {
         for (String item : markedItems) {
-            this.storage.delete(Long.valueOf(item));
+            this.itemDAO.deleteWord(Long.valueOf(item));
         }
         return new ResponseEntity<String>(HttpStatus.OK);
     }
