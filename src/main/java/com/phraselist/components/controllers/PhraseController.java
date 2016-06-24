@@ -78,7 +78,7 @@ public class PhraseController {
 
     @RequestMapping(value = "/{wordID}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteWord(@PathVariable long wordID) {
-        this.storage.delete(wordID);
+        this.itemDAO.deleteWord(wordID);
         return new ResponseEntity<String>(String.valueOf(wordID), HttpStatus.OK);
     }
 

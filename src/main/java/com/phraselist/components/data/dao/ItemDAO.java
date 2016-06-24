@@ -6,7 +6,6 @@ import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.db.ItemBean;
 import com.phraselist.model.beans.db.LanguageBean;
 import com.phraselist.model.beans.db.WordBean;
-//import org.apache.log4j.Logger;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -57,6 +56,13 @@ public class ItemDAO {
         namedParameters.put("translatedLanguage", translationLanguage);
         namedParameters.put("login", login);
         return jdbcTemplate.query(query, namedParameters, itemMapper);
+    }
+
+    public void deleteWord(long id) {
+        String query = "DELETE FROM items WHERE id=:id";
+        Map namedParameters = new HashMap();
+        namedParameters.put("id", id);
+        jdbcTemplate.update(query, namedParameters);
     }
 
     private LanguageBean putTranslatedLanguage(String language) {
