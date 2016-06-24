@@ -44,7 +44,7 @@ public class UserController {
             return new ResponseEntity<ClientUserBeanCommon>((ClientUserBeanCommon) req.getSession().getAttribute("user"), HttpStatus.OK);
         }
         LOG.info("Input variables - " + login + ".");
-        ClientUserBeanCommon userBean = null;
+        ClientUserBeanCommon userBean;
         try {
             userBean = loginService.login(login, pass);
         } catch (Exception e) {
