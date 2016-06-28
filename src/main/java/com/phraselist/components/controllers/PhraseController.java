@@ -48,6 +48,10 @@ public class PhraseController {
         item.setForeign(word.getForeign());
         item.setTranslation(word.getTranslation());
         ClientUserBeanCommon user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
+        if (user == null) {
+            LOG.error("Guest has no rights to add words.");
+            return new ResponseEntity<ItemBean>(HttpStatus.NOT_ACCEPTABLE);
+        }
         item.setLogin(user.getLogin());
         item.setComment("none");
         item.setDateOfCreation(new Date());

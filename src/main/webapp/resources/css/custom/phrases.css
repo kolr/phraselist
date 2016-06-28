@@ -93,3 +93,8 @@ div.error-box p {
     font-family: 'Quicksand', sans-serif;
     font-size: 15px;
 }
+
+#add-word-button-error-box {
+    display: inline;
+    color: red;
+}

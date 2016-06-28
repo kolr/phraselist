@@ -49,6 +49,12 @@ app.controller('TableController', ['$scope', '$http', "Word", "$rootScope", func
         word.$save(url(), function () {
             $scope.foreign = "";
             $scope.translation = "";
+        }, function(err) {
+            var errBox = document.getElementById("add-word-button-error-box");
+            errBox.classList.remove("hidden");
+            setTimeout(function(){
+                errBox.classList.add("hidden");
+            }, 5000);
         }).then(update);
 
     };

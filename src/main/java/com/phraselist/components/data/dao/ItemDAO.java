@@ -131,6 +131,9 @@ public class ItemDAO {
         WordBean oWord = putOriginalWord(item.getForeign());
         WordBean tWord = putTranslatedWord(item.getTranslation());
         User user = userDAO.getUser(item.getLogin());
+        if(user == null) {
+            throw new UserException("Guest has no rights to add word.");
+        }
         String query = "INSERT into ITEMS VALUES(default, :user, :oWord, :tWord, :comment, :dateCr, :dateEd, :oLang, :tLang)";
         Map namedParameters = new HashMap();
         namedParameters.put("user", user.getId());
