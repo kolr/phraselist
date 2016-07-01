@@ -205,11 +205,11 @@
 
     <div class="item-manager col-xs-5">
         <form>
-            <div class="">
+            <div class="item-manager-field">
                 <input type="text" class="form-control lg-input add-word-text-area" id="foreign"
                        placeholder="Original Word" ng-model="foreign">
             </div>
-            <div class="">
+            <div class="item-manager-field">
                 <input type="text" class="form-control lg-input add-word-text-area" id="translation"
                        placeholder="Translation" ng-model="translation">
             </div>

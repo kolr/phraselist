@@ -8,6 +8,14 @@ div.list-manager {
     /*color: #ffffff;*/
 }
 
+div.item-manager {
+    margin-top: 10px;
+}
+
+div.item-manager-field {
+    margin-bottom: 5px;
+}
+
 a.phrase-navbar-link {
     color: #ffffff;
 }
