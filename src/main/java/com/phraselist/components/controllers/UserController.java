@@ -5,6 +5,7 @@ import com.phraselist.components.services.user.UserService;
 import com.phraselist.model.beans.user.ClientUserBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
 import org.apache.log4j.Logger;
+import org.apache.log4j.or.ObjectRenderer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
@@ -56,11 +58,23 @@ public class UserController {
         return new ResponseEntity<ClientUserBeanCommon>(userBean, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "{login}/out", method = RequestMethod.POST)
+    public ResponseEntity<Object> signOut(@PathVariable String login, HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        if (session.getAttribute("user") != null) {
+            session.invalidate();
+            LOG.info(String.format("Session of user %s has been closed.", login));
+            return new ResponseEntity<Object>(HttpStatus.OK);
+        }
+        LOG.error(String.format("Session of user %s had been closed long ago.", login));
+        return new ResponseEntity<Object>(HttpStatus.METHOD_NOT_ALLOWED);
+    }
+
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<ClientUserBeanCommon> initializeUser(HttpServletRequest request) {
         ClientUserBeanCommon user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
-        if(user != null) {
+        if (user != null) {
             return new ResponseEntity<ClientUserBeanCommon>(user, HttpStatus.OK);
         }
         return new ResponseEntity<ClientUserBeanCommon>(HttpStatus.NOT_FOUND);

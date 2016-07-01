@@ -13,6 +13,10 @@ app.controller('TableController', ['$scope', '$http', "Word", "$rootScope", func
         $scope.updateAfterLogin();
     })
 
+    $rootScope.$on("Update", function () {
+        update();
+    })
+
     $scope.updateAfterLogin = function () {
         $scope.words = Word.query(url());
         enablingDeleteButton();
@@ -20,7 +24,9 @@ app.controller('TableController', ['$scope', '$http', "Word", "$rootScope", func
     };
 
     var update = function (res) {
-        if ($scope.words.length == 0 || res.data == "") {
+        if(res == undefined) {
+            $scope.words = Word.query(url());
+        } else if ($scope.words.length == 0 || res.data == "") {
             $scope.words = Word.query(url());
         } else {
             $scope.words.push(res);
@@ -29,8 +35,6 @@ app.controller('TableController', ['$scope', '$http', "Word", "$rootScope", func
         displayEnabling();
     };
 
-    // app.prototype.
-
 
     var updateOnDelete = function (res) {
         var deletedID = res.data;
@@ -38,7 +42,11 @@ app.controller('TableController', ['$scope', '$http', "Word", "$rootScope", func
             return arrItem.id === deletedID;
         });
         var deletedIndex = $scope.words.indexOf(el);
-        $scope.words = [...$scope.words.slice(0, deletedIndex), ...$scope.words.slice(deletedIndex + 1)];
+        $scope.words = [...$scope.words.slice(0, deletedIndex),
+        ...
+        $scope.words.slice(deletedIndex + 1)
+        ]
+        ;
     };
 
     update();
@@ -49,12 +57,12 @@ app.controller('TableController', ['$scope', '$http', "Word", "$rootScope", func
         word.$save(url(), function () {
             $scope.foreign = "";
             $scope.translation = "";
-        }, function(err) {
+        }, function (err) {
             var errBox = document.getElementById("add-word-button-error-box");
             errBox.classList.remove("hidden");
-            setTimeout(function(){
+            setTimeout(function () {
                 errBox.classList.add("hidden");
-            }, 5000);
+            }, 3000);
         }).then(update);
 
     };

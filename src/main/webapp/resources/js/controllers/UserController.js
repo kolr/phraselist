@@ -33,9 +33,9 @@ app.controller('userController', ['$scope', '$http', "User", "$rootScope", funct
     $scope.getUser = function () {
         var user;
         $http.post("/user/" + $scope.signInLogin, $scope.signInPass).success(function (data) {
+            $scope.signInLogin = "";
+            $scope.signInPass = "";
             $('#logInModal').modal('hide');
-            console.log("user");
-            console.log(data);
             user = data;
             initializeScopeVariables(user);
             displayUser(user);
@@ -45,6 +45,16 @@ app.controller('userController', ['$scope', '$http', "User", "$rootScope", funct
             console.log("An error has occurred.");
         })
     };
+
+    $scope.signOut = function () {
+        $http.post("/user/" + $scope.login + "/out").success(function () {
+            nullify();
+            displayGuestPanel();
+            $rootScope.$emit("Update", {});
+        }).error(function () {
+            console.log("Error while signing out.");
+        })
+    }
 
     var checkUser = function () {
         var user;
@@ -78,6 +88,21 @@ app.controller('userController', ['$scope', '$http', "User", "$rootScope", funct
             $scope.email = user.email;
             $scope.login = user.login;
         }
+    }
+
+    function nullify() {
+        $scope.name = null;
+        $scope.lastName = null;
+        $scope.email = null;
+        $scope.login = null;
+    }
+
+    function displayGuestPanel() {
+        var list = document.getElementById("login-section");
+        list.classList.remove("login-section-hide");
+
+        var userName = document.getElementById("user-section");
+        userName.classList.add("login-section-hide");
     }
 
 }]);

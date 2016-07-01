@@ -94,6 +94,11 @@ div.error-box p {
     font-size: 15px;
 }
 
+#user-section ul li p {
+    margin-bottom: 0;
+    margin-right: 15px;
+}
+
 #add-word-button-error-box {
     display: inline;
     color: red;

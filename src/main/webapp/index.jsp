@@ -19,7 +19,7 @@
     <script src="resources/js/App.js"></script>
     <script src="resources/js/controllers/tableController.js"></script>
     <script src="resources/js/controllers/UserController.js"></script>
-    <script src="resources/js/UserManager.js" ></script>
+    <script src="resources/js/UserManager.js"></script>
 
 </head>
 <body ng-app="Phrases">
@@ -41,7 +41,18 @@
         </div>
         <div ng-controller="userController">
             <div id="user-section" class="nav navbar-nav navbar-right login-section-hide">
-                {{ name }} {{lastName}}
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <p href="#" class="dropdown-toggle  phrase-navbar-link" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">{{ name }} {{lastName}} <span class="caret"></span></p>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Languages</a></li>
+                            <li><a href="#">Settings</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a ng-click="signOut()">Sign Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
             <ul id="login-section" class="nav navbar-nav navbar-right login-section-hide">
                 <li>
@@ -115,14 +126,16 @@
                                         <label for="inputName1">Name</label>
                                         <input type="text" class="form-control" id="inputName1" ng-model="signUpName"
                                                placeholder="Name">
-                                        <div class="error-box"><p id="inputName1-error" class="bg-danger error-hidden">More than 2 symbols</p>
+                                        <div class="error-box"><p id="inputName1-error" class="bg-danger error-hidden">
+                                            More than 2 symbols</p>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="inputLastname1">Lastname</label>
                                         <input type="text" class="form-control" id="inputLastname1"
                                                ng-model="signUpLastname" placeholder="Lastname">
-                                        <div class="error-box"><p id="inputLastname1-error" class="bg-danger error-hidden">More than 2 symbols</p>
+                                        <div class="error-box"><p id="inputLastname1-error"
+                                                                  class="bg-danger error-hidden">More than 2 symbols</p>
                                         </div>
                                     </div>
                                 </div>
@@ -130,21 +143,24 @@
                                     <label for="inputLogin1">Login</label>
                                     <input type="text" class="form-control" id="inputLogin1" ng-model="signUpLogin"
                                            placeholder="Login">
-                                    <div class="error-box"><p id="inputLogin1-error" class="bg-danger error-hidden">More than 2 symbols, and
+                                    <div class="error-box"><p id="inputLogin1-error" class="bg-danger error-hidden">More
+                                        than 2 symbols, and
                                         should be unique</p></div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputEmail1">Email address</label>
                                     <input type="email" class="form-control" id="inputEmail1" ng-model="signUpEmail"
                                            placeholder="Email">
-                                    <div class="error-box"><p id="inputEmail1-error" class="bg-danger error-hidden">Seems like it is not email
+                                    <div class="error-box"><p id="inputEmail1-error" class="bg-danger error-hidden">
+                                        Seems like it is not email
                                         address</p></div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword1">Password</label>
                                     <input type="password" class="form-control" id="inputPassword1"
                                            ng-model="signUpPassword" placeholder="Password">
-                                    <div class="error-box"><p id="inputPassword1-error" class="bg-danger error-hidden">More than 8 symbols</p>
+                                    <div class="error-box"><p id="inputPassword1-error" class="bg-danger error-hidden">
+                                        More than 8 symbols</p>
                                     </div>
                                 </div>
                             </form>
@@ -203,13 +219,13 @@
             <div id="add-word-button-error-box" class="hidden">You have no rights to add words. Please log in.</div>
         </form>
         <%--<form>--%>
-            <%--<div class="">--%>
-                <%--<input type="text" class="form-control lg-input add-word-text-area" id="label"--%>
-                       <%--placeholder="Label" ng-model="label">--%>
-            <%--</div>--%>
-            <%--<div class="manager-button" ng-click="addLabel(label)">--%>
-                <%--<span class="glyphicon glyphicon-ok vocabulary-button-text" aria-hidden="true"></span>--%>
-            <%--</div>--%>
+        <%--<div class="">--%>
+        <%--<input type="text" class="form-control lg-input add-word-text-area" id="label"--%>
+        <%--placeholder="Label" ng-model="label">--%>
+        <%--</div>--%>
+        <%--<div class="manager-button" ng-click="addLabel(label)">--%>
+        <%--<span class="glyphicon glyphicon-ok vocabulary-button-text" aria-hidden="true"></span>--%>
+        <%--</div>--%>
         <%--</form>--%>
     </div>
 </div>
