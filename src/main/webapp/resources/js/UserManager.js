@@ -10,7 +10,7 @@ window.onload = function () {
             field.onblur = function (e) {
                 var tar = e.target;
                 var res = fields.get(tar.id).validate(tar.value);
-                if(res) {
+                if (res) {
                     document.getElementById(tar.id + "-error").classList.add("error-hidden")
                 } else {
                     document.getElementById(tar.id + "-error").classList.remove("error-hidden")
@@ -18,7 +18,23 @@ window.onload = function () {
             }
         }
     });
+    wordValidation();
 };
+
+function wordValidation() {
+    $('add-word-button').on('click', function () {
+        var foreignField = new Field("foreign", true, /[a-zA-Zа-яА-Я]{2,30}/i)
+        var translationField = new Field("translation", true, /[a-zA-Zа-яА-Я]{2,30}/i)
+        if (foreignField.validate(document.getElementById("foreign").value) &&
+            translationField.validate(document.getElementById("translation").value)) {
+            console.log("good");
+        } else {
+            console.log("bad");
+        }
+
+    });
+}
+
 
 var Field = function (name, required, regexp) {
     if (required != null) this.required = required;
