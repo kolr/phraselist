@@ -17,7 +17,7 @@
     <%--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>--%>
     <script src="resources/js/bootstrap/bootstrap.min.js"></script>
     <script src="resources/js/App.js"></script>
-    <script src="resources/js/controllers/tableController.js"></script>
+    <script src="resources/js/controllers/TableController.js"></script>
     <script src="resources/js/controllers/UserController.js"></script>
     <script src="resources/js/UserManager.js"></script>
 
