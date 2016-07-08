@@ -30,13 +30,11 @@ function unmark(wordValue, input) {
 
 
 function enablingDeleteButton() {
-    console.log("Number of marked items - " + markedCounter);
     if (markedCounter == 0) {
         deleteEnabled = false;
     } else {
         deleteEnabled = true;
     }
-    console.log("deleting enabled: " + deleteEnabled);
 }
 
 function displayEnabling() {
@@ -44,15 +42,11 @@ function displayEnabling() {
     if (deleteEnabled) {
         if (deleteAllButton.classList.contains("disabled-button")) {
             deleteAllButton.classList.remove("disabled-button");
-            console.log("removed class disabled-button");
         }
-        console.log("delete enabled");
     } else {
         if (!deleteAllButton.classList.contains("disabled-button")) {
             deleteAllButton.classList.add("disabled-button");
-            console.log("added class disabled-button");
         }
-        console.log("display disabled");
     }
 }
 
@@ -61,34 +55,5 @@ function displayEnabling() {
 document.getElementsByTagName("input").onchange = function (event) {
     console.log("changed");
 }
-
-
-// TODO listeners
-function UserRegistrationValidator(login, email, name, lastname, password) {
-    var ids = ["inputName1", "inputLastname1", "inputLogin1", "inputEmail1", "inputPassword1"];
-    // for(var i = 0; i < 5; i++) {
-    //     // document.getElementById(ids[i]).onchange = function(){
-    //     //     console.log('tap');
-    //     // };
-    // }
-};
-
-
-var userRegistrationValidator = new UserRegistrationValidator();
-
-//User Section
-
-// window.onload = function () {
-//     $('#logInModal').on('shown.bs.modal', function () {
-//         console.log("Form has been opened.");
-//         var loginForm = document.getElementById('login-form');
-//         loginForm.onkeydown = function (e) {
-//             console.log("Key has been pressed.");
-//             if (e.keyCode == 13) {
-//                 getUserByEnter();
-//             }
-//         }
-//     });
-// }
 
 
