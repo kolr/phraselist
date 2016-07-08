@@ -42,11 +42,12 @@ app.controller('TableController', ['$scope', '$http', "Word", "$rootScope", func
             return arrItem.id === deletedID;
         });
         var deletedIndex = $scope.words.indexOf(el);
-        $scope.words = [...$scope.words.slice(0, deletedIndex),
-        ...
-        $scope.words.slice(deletedIndex + 1)
-        ]
-        ;
+        var firstPart = $scope.words.slice(0, deletedIndex);
+        var secondPart = $scope.words.slice(deletedIndex + 1);
+        for(var i = 0; i < secondPart.length; i++) {
+            firstPart.push(secondPart[i])
+        }
+        $scope.words = firstPart;
     };
 
     update();
