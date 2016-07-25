@@ -19,6 +19,9 @@ public class HibernateUtil {
 
     private static SessionFactory sessionAnnotationFactory;
 
+    private HibernateUtil() {
+    }
+
     public static SessionFactory getSessionAnnotationFactory() {
         if (sessionAnnotationFactory == null) sessionAnnotationFactory = buildSessionAnnotationFactory();
         return sessionAnnotationFactory;
