@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
         session.beginTransaction();
         session.save(convertedUser);
         session.getTransaction().commit();
-        session.close();
     }
 
     public void updateUser(User user) {
@@ -67,7 +66,6 @@ public class UserServiceImpl implements UserService {
         Transaction transaction = session.beginTransaction();
         Role role = (Role) session.get(Role.class, id);
         transaction.commit();
-        session.close();
         return role;
     }
 }
