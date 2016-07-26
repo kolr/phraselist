@@ -2,10 +2,10 @@ package com.phraselist.components.services.user.hbnt.impl;
 
 import com.phraselist.components.data.hbnt.entities.Role;
 import com.phraselist.components.data.hbnt.util.HibernateUtil;
-import com.phraselist.components.services.user.UserService;
 import com.phraselist.components.data.hbnt.entities.User;
 import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.user.ClientUserBean;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,6 +15,7 @@ import org.hibernate.Transaction;
  * Created by Rodion.
  */
 public class UserServiceImpl {
+
     public void createUser(ClientUserBean user) {
         User convertedUser = convertUser(user);
         SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
@@ -34,7 +35,14 @@ public class UserServiceImpl {
     }
 
     public User getUserByLogin(String login) throws UserException {
-        return null;
+        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from User where login = :login");
+        query.setParameter("login", login);
+        User user = (User) query.uniqueResult();
+        sessionFactory.close();
+        return user;
     }
 
     public User getUserByEmail(String email) {

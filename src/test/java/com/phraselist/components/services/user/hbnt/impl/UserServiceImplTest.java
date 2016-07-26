@@ -1,5 +1,6 @@
 package com.phraselist.components.services.user.hbnt.impl;
 
+import com.phraselist.components.data.hbnt.entities.User;
 import com.phraselist.components.services.user.UserService;
 import com.phraselist.model.beans.user.ClientUserBean;
 import org.junit.BeforeClass;
@@ -28,8 +29,8 @@ public class UserServiceImplTest {
 
     @Test
     public void createUser() throws Exception {
-        ClientUserBean test = new ClientUserBean(USER_LOGIN, USER_EMAIL, USER_NAME, USER_LASTNAME, USER_PASS);
-        userService.createUser(test);
+        User user = userService.getUserByLogin(USER_LOGIN);
+        assertEquals(USER_EMAIL, user.getEmail());
     }
 
 }
