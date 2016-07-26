@@ -1,7 +1,6 @@
 package com.phraselist.components.controllers;
 
 import com.phraselist.components.data.dao.ItemDAO;
-import com.phraselist.components.data.dao.UserDAO;
 import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.db.ItemBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
@@ -29,9 +28,6 @@ public class PhraseController {
     private static final Logger LOG = Logger.getLogger(PhraseController.class);
 
     private Storage storage;
-
-    @Inject
-    private UserDAO userDAO;
 
     @Inject
     private ItemDAO itemDAO;
@@ -92,18 +88,6 @@ public class PhraseController {
             this.itemDAO.deleteWord(Long.valueOf(item));
         }
         return new ResponseEntity<String>(HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/label/{name}", method = RequestMethod.POST)
-    public ResponseEntity<String> addLabel(@PathVariable String name) {
-        userDAO.insertLabel(name);
-        return new ResponseEntity<String>(HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/getall/{ol}/{tl}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<ItemBean> getAll(HttpServletRequest request, @PathVariable String ol, @PathVariable String tl) {
-        return this.itemDAO.getItems(ol, tl);
     }
 
 }

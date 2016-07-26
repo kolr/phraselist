@@ -1,7 +1,8 @@
 package com.phraselist.components.data.dao;
 
 import com.phraselist.components.data.mapper.*;
-import com.phraselist.entity.user.User;
+import com.phraselist.components.services.user.UserService;
+import com.phraselist.components.data.hbnt.entities.User;
 import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.db.ItemBean;
 import com.phraselist.model.beans.db.LanguageBean;
@@ -24,7 +25,7 @@ public class ItemDAO {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Inject
-    private UserDAO userDAO;
+    private UserService userService;
 
     @Inject
     public ItemDAO(NamedParameterJdbcTemplate jdbcTemplate) {
@@ -130,8 +131,8 @@ public class ItemDAO {
         LanguageBean tLanguage = putTranslatedLanguage(translatedLanguage);
         WordBean oWord = putOriginalWord(item.getForeign());
         WordBean tWord = putTranslatedWord(item.getTranslation());
-        User user = userDAO.getUser(item.getLogin());
-        if(user == null) {
+        User user = userService.getUserByLogin(item.getLogin());
+        if (user == null) {
             throw new UserException("Guest has no rights to add word.");
         }
         String query = "INSERT into ITEMS VALUES(default, :user, :oWord, :tWord, :comment, :dateCr, :dateEd, :oLang, :tLang)";

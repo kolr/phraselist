@@ -3,6 +3,7 @@ package com.phraselist.components.services.user.hbnt.impl;
 import com.phraselist.components.data.hbnt.entities.Role;
 import com.phraselist.components.data.hbnt.util.HibernateUtil;
 import com.phraselist.components.data.hbnt.entities.User;
+import com.phraselist.components.services.user.UserService;
 import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.user.ClientUserBean;
 import org.hibernate.Query;
@@ -14,7 +15,7 @@ import org.hibernate.Transaction;
  * 25.07.2016
  * Created by Rodion.
  */
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
 
     public void createUser(ClientUserBean user) {
         User convertedUser = convertUser(user);
@@ -23,7 +24,7 @@ public class UserServiceImpl {
         session.beginTransaction();
         session.save(convertedUser);
         session.getTransaction().commit();
-        sessionFactory.close();
+        session.close();
     }
 
     public void updateUser(User user) {
@@ -41,7 +42,7 @@ public class UserServiceImpl {
         Query query = session.createQuery("from User where login = :login");
         query.setParameter("login", login);
         User user = (User) query.uniqueResult();
-        sessionFactory.close();
+        session.close();
         return user;
     }
 
@@ -66,6 +67,7 @@ public class UserServiceImpl {
         Transaction transaction = session.beginTransaction();
         Role role = (Role) session.get(Role.class, id);
         transaction.commit();
+        session.close();
         return role;
     }
 }
