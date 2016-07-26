@@ -1,4 +1,4 @@
-package com.phraselist.entity.word;
+package com.phraselist.components.data.hbnt.entities;
 
 import java.util.Date;
 

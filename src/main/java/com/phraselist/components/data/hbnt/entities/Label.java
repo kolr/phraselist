@@ -1,4 +1,4 @@
-package com.phraselist.entity.label;
+package com.phraselist.components.data.hbnt.entities;
 
 /**
  * 17.04.2016
