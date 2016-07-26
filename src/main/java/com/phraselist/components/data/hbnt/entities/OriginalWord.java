@@ -1,16 +1,28 @@
 package com.phraselist.components.data.hbnt.entities;
 
+import javax.persistence.*;
+
 /**
  * 17.04.2016
  * Created by Rodion.
  */
+
+@Entity
+@Table(name = "original_words")
 public class OriginalWord {
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     private long id;
+
+    @Column(name = "word")
     private String word;
-    private long languageId;
 
     public OriginalWord() {
-        super();
+    }
+
+    public OriginalWord(String word) {
+        this.word = word;
     }
 
     public long getId() {
@@ -29,41 +41,4 @@ public class OriginalWord {
         this.word = word;
     }
 
-    public long getLanguageId() {
-        return languageId;
-    }
-
-    public void setLanguageId(long languageId) {
-        this.languageId = languageId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        OriginalWord that = (OriginalWord) o;
-
-        if (id != that.id) return false;
-        if (languageId != that.languageId) return false;
-        return word != null ? word.equals(that.word) : that.word == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (word != null ? word.hashCode() : 0);
-        result = 31 * result + (int) (languageId ^ (languageId >>> 32));
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "OriginalWord{" +
-                "id=" + id +
-                ", word='" + word + '\'' +
-                ", languageId=" + languageId +
-                '}';
-    }
 }
