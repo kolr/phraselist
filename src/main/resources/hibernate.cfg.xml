@@ -7,7 +7,7 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/phraselist</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/phraselist?characterEncoding=UTF-8</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">energystar</property>
 
@@ -19,6 +19,11 @@
 
         <mapping class="com.phraselist.components.data.hbnt.entities.User"/>
         <mapping class="com.phraselist.components.data.hbnt.entities.Role"/>
+        <mapping class="com.phraselist.components.data.hbnt.entities.OriginalWord"/>
+        <mapping class="com.phraselist.components.data.hbnt.entities.Translation"/>
+        <mapping class="com.phraselist.components.data.hbnt.entities.OriginalLanguage"/>
+        <mapping class="com.phraselist.components.data.hbnt.entities.TranslatedLanguage"/>
+        <mapping class="com.phraselist.components.data.hbnt.entities.Item"/>
 
 
     </session-factory>
