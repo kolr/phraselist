@@ -1,9 +1,8 @@
 package com.phraselist.components.services.user;
 
-import com.phraselist.components.data.hbnt.entities.OriginalLanguage;
-import com.phraselist.components.data.hbnt.entities.OriginalWord;
-import com.phraselist.components.data.hbnt.entities.TranslatedLanguage;
-import com.phraselist.components.data.hbnt.entities.Translation;
+import com.phraselist.components.data.hbnt.entities.*;
+
+import java.util.List;
 
 /**
  * 26.07.2016
@@ -17,4 +16,6 @@ public interface PhraseService {
     OriginalLanguage getOriginalLanguage(String language);
 
     TranslatedLanguage getTranslatedLanguage(String language);
+
+    List<Item> getUsersItems(String oLanguage, String tLanguage, String login);
 }
