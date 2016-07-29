@@ -1,7 +1,6 @@
 package com.phraselist.components.services.user.hbnt.impl;
 
 import com.phraselist.components.data.hbnt.entities.*;
-import com.phraselist.components.services.user.PhraseService;
 import com.phraselist.components.services.user.UserService;
 import com.phraselist.exceptions.login.UserException;
 import org.apache.log4j.Logger;

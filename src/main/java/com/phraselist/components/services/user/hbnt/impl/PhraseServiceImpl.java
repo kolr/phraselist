@@ -21,11 +21,12 @@ import java.util.List;
 public class PhraseServiceImpl implements PhraseService {
     private static final Logger LOG = Logger.getLogger(PhraseServiceImpl.class);
 
+    private SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+
     @Inject
     private UserService userService;
 
     public OriginalWord getOriginalWord(String word) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("from OriginalWord where word = :word");
@@ -36,7 +37,6 @@ public class PhraseServiceImpl implements PhraseService {
     }
 
     public Translation getTranslation(String word) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("from Translation where tword = :tword");
@@ -47,7 +47,6 @@ public class PhraseServiceImpl implements PhraseService {
     }
 
     public OriginalLanguage getOriginalLanguage(String language) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("from OriginalLanguage where language = :language");
@@ -58,7 +57,6 @@ public class PhraseServiceImpl implements PhraseService {
     }
 
     public TranslatedLanguage getTranslatedLanguage(String language) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("from TranslatedLanguage where tlanguage = :tlanguage");
@@ -85,7 +83,6 @@ public class PhraseServiceImpl implements PhraseService {
     }
 
     private List<Item> getItems(OriginalLanguage oLang, TranslatedLanguage tLang, User user) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("from Item where originalLanguage = :oLang " +
