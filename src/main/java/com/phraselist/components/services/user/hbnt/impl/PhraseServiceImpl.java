@@ -36,6 +36,14 @@ public class PhraseServiceImpl implements PhraseService {
         return result;
     }
 
+    public void addOriginalWord(String word) {
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(new OriginalWord(word));
+        transaction.commit();
+    }
+
+
     public Translation getTranslation(String word) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
@@ -44,6 +52,13 @@ public class PhraseServiceImpl implements PhraseService {
         Translation result = (Translation) query.uniqueResult();
         session.close();
         return result;
+    }
+
+    public void addTranslation(String word) {
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(new Translation(word));
+        transaction.commit();
     }
 
     public OriginalLanguage getOriginalLanguage(String language) {
@@ -56,6 +71,13 @@ public class PhraseServiceImpl implements PhraseService {
         return result;
     }
 
+    public void addOriginalLanguage(String language) {
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(new OriginalLanguage(language));
+        transaction.commit();
+    }
+
     public TranslatedLanguage getTranslatedLanguage(String language) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
@@ -64,6 +86,13 @@ public class PhraseServiceImpl implements PhraseService {
         TranslatedLanguage result = (TranslatedLanguage) query.uniqueResult();
         session.close();
         return result;
+    }
+
+    public void addTranslatedLanguage(String language) {
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(new TranslatedLanguage(language));
+        transaction.commit();
     }
 
     public List<Item> getUsersItems(String oLanguage, String tLanguage, String login) {

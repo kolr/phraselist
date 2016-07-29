@@ -22,6 +22,10 @@ public class Translation {
         super();
     }
 
+    public Translation(String word) {
+        this.tword = word;
+    }
+
     public long getId() {
         return id;
     }
