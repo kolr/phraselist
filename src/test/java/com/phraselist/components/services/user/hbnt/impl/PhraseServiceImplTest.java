@@ -48,7 +48,6 @@ public class PhraseServiceImplTest {
     @Before
     public void initMocks() {
         MockitoAnnotations.initMocks(this);
-//        phraseService = new PhraseServiceImpl();
         try {
             when(userService.getUserByLogin(USER_CORRECT_LOGIN)).thenReturn(getUser());
         } catch (UserException e) {
