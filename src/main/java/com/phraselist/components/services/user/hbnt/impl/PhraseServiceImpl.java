@@ -5,6 +5,7 @@ import com.phraselist.components.data.hbnt.util.HibernateUtil;
 import com.phraselist.components.services.user.PhraseService;
 import com.phraselist.components.services.user.UserService;
 import com.phraselist.exceptions.login.UserException;
+import com.phraselist.model.beans.db.ItemBean;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -36,11 +37,12 @@ public class PhraseServiceImpl implements PhraseService {
         return result;
     }
 
-    public void addOriginalWord(String word) {
+    public OriginalWord addOriginalWord(String word) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         session.save(new OriginalWord(word));
         transaction.commit();
+        return getOriginalWord(word);
     }
 
 
@@ -54,11 +56,12 @@ public class PhraseServiceImpl implements PhraseService {
         return result;
     }
 
-    public void addTranslation(String word) {
+    public Translation addTranslation(String word) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         session.save(new Translation(word));
         transaction.commit();
+        return getTranslation(word);
     }
 
     public OriginalLanguage getOriginalLanguage(String language) {
@@ -71,11 +74,12 @@ public class PhraseServiceImpl implements PhraseService {
         return result;
     }
 
-    public void addOriginalLanguage(String language) {
+    public OriginalLanguage addOriginalLanguage(String language) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         session.save(new OriginalLanguage(language));
         transaction.commit();
+        return getOriginalLanguage(language);
     }
 
     public TranslatedLanguage getTranslatedLanguage(String language) {
@@ -88,11 +92,12 @@ public class PhraseServiceImpl implements PhraseService {
         return result;
     }
 
-    public void addTranslatedLanguage(String language) {
+    public TranslatedLanguage addTranslatedLanguage(String language) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         session.save(new TranslatedLanguage(language));
         transaction.commit();
+        return getTranslatedLanguage(language);
     }
 
     public List<Item> getUsersItems(String oLanguage, String tLanguage, String login) {
@@ -123,4 +128,32 @@ public class PhraseServiceImpl implements PhraseService {
         session.close();
         return result;
     }
+
+    public void addItem(ItemBean item, String originalLanguage, String translatedLanguage) throws UserException {
+        Item itemToAdd = new Item();
+        User user = userService.getUserByLogin(item.getLogin());
+        OriginalWord oWord = getOriginalWord(item.getForeign());
+        if (oWord == null) {
+            oWord = addOriginalWord(item.getForeign());
+        }
+        Translation tWord = getTranslation(item.getTranslation());
+        if (tWord == null) tWord = addTranslation(item.getTranslation());
+        OriginalLanguage oLang = getOriginalLanguage(originalLanguage);
+        if (oLang == null) oLang = addOriginalLanguage(originalLanguage);
+        TranslatedLanguage tLang = getTranslatedLanguage(translatedLanguage);
+        if (tLang == null) tLang = addTranslatedLanguage(translatedLanguage);
+        itemToAdd.setUser(user);
+        itemToAdd.setDateOfCreation(item.getDateOfCreation());
+        itemToAdd.setComment(item.getComment());
+        itemToAdd.setDateOfEdition(item.getDateOfEdition());
+        itemToAdd.setOriginalLanguage(oLang);
+        itemToAdd.setTranslatedLanguage(tLang);
+        itemToAdd.setOriginalWord(oWord);
+        itemToAdd.setTranslation(tWord);
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(itemToAdd);
+        transaction.commit();
+    }
+
 }

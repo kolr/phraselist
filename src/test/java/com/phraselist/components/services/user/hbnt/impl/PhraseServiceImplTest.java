@@ -3,6 +3,7 @@ package com.phraselist.components.services.user.hbnt.impl;
 import com.phraselist.components.data.hbnt.entities.*;
 import com.phraselist.components.services.user.UserService;
 import com.phraselist.exceptions.login.UserException;
+import com.phraselist.model.beans.db.ItemBean;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -87,6 +89,25 @@ public class PhraseServiceImplTest {
         List<Item> actual = phraseService.getUsersItems(ORIGINAL_LANGUAGE, TRANSLATED_LANGUAGE, USER_CORRECT_LOGIN);
 
         assertEquals(NUMBER_OF_ITEMS, actual.size());
+    }
+
+    // 10 example
+    @Test
+    public void addItem() {
+        ItemBean item = new ItemBean();
+        item.setId(0);
+        item.setDateOfCreation(new Date());
+        item.setComment("none");
+        item.setLogin("kolr");
+        item.setDateOfEdition(new Date());
+        item.setForeign("Performance");
+        item.setTranslation("Представление");
+
+        try {
+            phraseService.addItem(item, "english", "russian");
+        } catch (UserException e) {
+            LOG.error(e);
+        }
     }
 
 

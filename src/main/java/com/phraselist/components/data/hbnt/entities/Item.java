@@ -48,6 +48,18 @@ public class Item {
     public Item() {
     }
 
+    public Item(User user, OriginalWord originalWord, Translation translation, String comment, Date dateOfCreation,
+                Date dateOfEdition, OriginalLanguage originalLanguage, TranslatedLanguage translatedLanguage) {
+        this.user = user;
+        this.originalWord = originalWord;
+        this.translation = translation;
+        this.comment = comment;
+        this.dateOfCreation = dateOfCreation;
+        this.dateOfEdition = dateOfEdition;
+        this.originalLanguage = originalLanguage;
+        this.translatedLanguage = translatedLanguage;
+    }
+
     public long getId() {
         return id;
     }
