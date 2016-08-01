@@ -91,26 +91,6 @@ public class PhraseServiceImplTest {
         assertEquals(NUMBER_OF_ITEMS, actual.size());
     }
 
-    // 10 example
-    @Test
-    public void addItem() {
-        ItemBean item = new ItemBean();
-        item.setId(0);
-        item.setDateOfCreation(new Date());
-        item.setComment("none");
-        item.setLogin("kolr");
-        item.setDateOfEdition(new Date());
-        item.setForeign("Performance");
-        item.setTranslation("Представление");
-
-        try {
-            phraseService.addItem(item, "english", "russian");
-        } catch (UserException e) {
-            LOG.error(e);
-        }
-    }
-
-
     private static User getUser() {
         User user = new User();
         user.setId(3);
