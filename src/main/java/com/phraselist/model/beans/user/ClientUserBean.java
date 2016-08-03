@@ -28,6 +28,14 @@ public class ClientUserBean {
         super();
     }
 
+    public ClientUserBean(String login, String email, String name, String lastname, String password) {
+        this.login = login;
+        this.email = email;
+        this.name = name;
+        this.lastname = lastname;
+        this.password = password;
+    }
+
     public String getLogin() {
         return login;
     }

@@ -1,7 +1,7 @@
 package com.phraselist.components.controllers;
 
-import com.phraselist.components.data.dao.ItemDAO;
-import com.phraselist.components.data.dao.UserDAO;
+import com.phraselist.components.data.hbnt.entities.Item;
+import com.phraselist.components.services.user.PhraseService;
 import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.db.ItemBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,10 +32,7 @@ public class PhraseController {
     private Storage storage;
 
     @Inject
-    private UserDAO userDAO;
-
-    @Inject
-    private ItemDAO itemDAO;
+    private PhraseService phraseService;
 
     @Inject
     public PhraseController(Storage storage) {
@@ -57,7 +55,7 @@ public class PhraseController {
         item.setDateOfCreation(new Date());
         item.setDateOfEdition(new Date());
         try {
-            itemDAO.addItem(item, language, "russian");
+            phraseService.addItem(item, language, "russian");
         } catch (UserException ex) {
             LOG.error(ex);
         }
@@ -73,7 +71,7 @@ public class PhraseController {
         if (request.getSession().getAttribute("user") != null) {
             user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
             LOG.info(String.format("Current user is %s %s.", user.getName(), user.getLastname()));
-            return this.itemDAO.getUsersItems(language, "russian", user.getLogin());
+            return convertToItemBean(phraseService.getUsersItems(language, "russian", user.getLogin()));
         } else {
             LOG.info("Guest is using this vocabulary.");
         }
@@ -82,28 +80,32 @@ public class PhraseController {
 
     @RequestMapping(value = "/{wordID}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteWord(@PathVariable long wordID) {
-        this.itemDAO.deleteWord(wordID);
+        phraseService.deleteItem(wordID);
         return new ResponseEntity<String>(String.valueOf(wordID), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.POST)
     public ResponseEntity<String> deleteWords(@RequestBody List<String> markedItems) {
         for (String item : markedItems) {
-            this.itemDAO.deleteWord(Long.valueOf(item));
+            phraseService.deleteItem(Long.valueOf(item));
         }
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/label/{name}", method = RequestMethod.POST)
-    public ResponseEntity<String> addLabel(@PathVariable String name) {
-        userDAO.insertLabel(name);
-        return new ResponseEntity<String>(HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/getall/{ol}/{tl}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<ItemBean> getAll(HttpServletRequest request, @PathVariable String ol, @PathVariable String tl) {
-        return this.itemDAO.getItems(ol, tl);
+    private List<ItemBean> convertToItemBean(List<Item> lst) {
+        List<ItemBean> result = new ArrayList<ItemBean>();
+        for (Item item : lst) {
+            ItemBean temp = new ItemBean();
+            temp.setId(item.getId());
+            temp.setDateOfCreation(item.getDateOfCreation());
+            temp.setComment(item.getComment());
+            temp.setLogin(item.getUser().getLogin());
+            temp.setForeign(item.getOriginalWord().getWord());
+            temp.setTranslation(item.getTranslation().getWord());
+            temp.setDateOfEdition(item.getDateOfEdition());
+            result.add(temp);
+        }
+        return result;
     }
 
 }

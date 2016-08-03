@@ -218,15 +218,6 @@
             </div>
             <div id="add-word-button-error-box" class="hidden">You have no rights to add words. Please log in.</div>
         </form>
-        <%--<form>--%>
-        <%--<div class="">--%>
-        <%--<input type="text" class="form-control lg-input add-word-text-area" id="label"--%>
-        <%--placeholder="Label" ng-model="label">--%>
-        <%--</div>--%>
-        <%--<div class="manager-button" ng-click="addLabel(label)">--%>
-        <%--<span class="glyphicon glyphicon-ok vocabulary-button-text" aria-hidden="true"></span>--%>
-        <%--</div>--%>
-        <%--</form>--%>
     </div>
 </div>
 </body>
