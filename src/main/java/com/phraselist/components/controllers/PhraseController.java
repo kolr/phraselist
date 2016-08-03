@@ -1,6 +1,5 @@
 package com.phraselist.components.controllers;
 
-import com.phraselist.components.data.dao.ItemDAO;
 import com.phraselist.components.data.hbnt.entities.Item;
 import com.phraselist.components.services.user.PhraseService;
 import com.phraselist.exceptions.login.UserException;
@@ -31,9 +30,6 @@ public class PhraseController {
     private static final Logger LOG = Logger.getLogger(PhraseController.class);
 
     private Storage storage;
-
-    @Inject
-    private ItemDAO itemDAO;
 
     @Inject
     private PhraseService phraseService;
