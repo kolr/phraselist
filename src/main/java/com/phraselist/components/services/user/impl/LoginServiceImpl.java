@@ -2,7 +2,7 @@ package com.phraselist.components.services.user.impl;
 
 import com.phraselist.components.services.user.LoginService;
 import com.phraselist.components.services.user.UserService;
-import com.phraselist.entity.user.User;
+import com.phraselist.components.data.hbnt.entities.User;
 import com.phraselist.exceptions.login.LoginException;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
 import com.phraselist.validation.Validator;
@@ -47,7 +47,7 @@ public class LoginServiceImpl implements LoginService {
         userBean.setLogin(user.getLogin());
         userBean.setEmail(user.getEmail());
         userBean.setName(user.getName());
-        userBean.setLastname(user.getLastName());
+        userBean.setLastname(user.getLastname());
         return userBean;
     }
 }

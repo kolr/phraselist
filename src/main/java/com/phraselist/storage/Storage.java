@@ -1,6 +1,5 @@
 package com.phraselist.storage;
 
-import com.phraselist.entity.word.PhraseListItem;
 import com.phraselist.model.beans.db.ItemBean;
 
 import java.util.ArrayList;

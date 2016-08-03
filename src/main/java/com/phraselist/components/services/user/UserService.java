@@ -1,6 +1,6 @@
 package com.phraselist.components.services.user;
 
-import com.phraselist.entity.user.User;
+import com.phraselist.components.data.hbnt.entities.User;
 import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.user.ClientUserBean;
 

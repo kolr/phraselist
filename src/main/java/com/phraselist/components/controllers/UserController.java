@@ -5,7 +5,6 @@ import com.phraselist.components.services.user.UserService;
 import com.phraselist.model.beans.user.ClientUserBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
 import org.apache.log4j.Logger;
-import org.apache.log4j.or.ObjectRenderer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
