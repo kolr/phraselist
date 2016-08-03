@@ -156,4 +156,14 @@ public class PhraseServiceImpl implements PhraseService {
         transaction.commit();
     }
 
+    public void deleteItem(long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("delete from Item where id=:id");
+        query.setLong("id", id);
+        query.executeUpdate();
+        transaction.commit();
+        LOG.info(String.format("Item with id %d has been deleted.", id));
+    }
+
 }

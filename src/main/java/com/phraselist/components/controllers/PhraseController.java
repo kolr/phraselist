@@ -59,7 +59,6 @@ public class PhraseController {
         item.setDateOfCreation(new Date());
         item.setDateOfEdition(new Date());
         try {
-//            itemDAO.addItem(item, language, "russian");-
             phraseService.addItem(item, language, "russian");
         } catch (UserException ex) {
             LOG.error(ex);
@@ -76,7 +75,6 @@ public class PhraseController {
         if (request.getSession().getAttribute("user") != null) {
             user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
             LOG.info(String.format("Current user is %s %s.", user.getName(), user.getLastname()));
-//            return this.itemDAO.getUsersItems(language, "russian", user.getLogin());
             return convertToItemBean(phraseService.getUsersItems(language, "russian", user.getLogin()));
         } else {
             LOG.info("Guest is using this vocabulary.");
@@ -84,18 +82,16 @@ public class PhraseController {
         return this.storage.getAll();
     }
 
-    // TODO implemnt deleting.
     @RequestMapping(value = "/{wordID}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteWord(@PathVariable long wordID) {
-        this.itemDAO.deleteWord(wordID);
+        phraseService.deleteItem(wordID);
         return new ResponseEntity<String>(String.valueOf(wordID), HttpStatus.OK);
     }
 
-    // TODO implement in service
     @RequestMapping(value = "/all", method = RequestMethod.POST)
     public ResponseEntity<String> deleteWords(@RequestBody List<String> markedItems) {
         for (String item : markedItems) {
-            this.itemDAO.deleteWord(Long.valueOf(item));
+            phraseService.deleteItem(Long.valueOf(item));
         }
         return new ResponseEntity<String>(HttpStatus.OK);
     }
