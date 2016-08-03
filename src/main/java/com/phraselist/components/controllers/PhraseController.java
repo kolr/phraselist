@@ -55,7 +55,8 @@ public class PhraseController {
         item.setDateOfCreation(new Date());
         item.setDateOfEdition(new Date());
         try {
-            phraseService.addItem(item, language, "russian");
+            Item temp = phraseService.addItem(item, language, "russian");
+            item.setId(temp.getId());
         } catch (UserException ex) {
             LOG.error(ex);
         }

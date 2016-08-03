@@ -29,7 +29,7 @@ public interface PhraseService {
 
     List<Item> getUsersItems(String oLanguage, String tLanguage, String login);
 
-    void addItem(ItemBean item, String originalLanguage, String translatedLanguage) throws UserException;
+    Item addItem(ItemBean item, String originalLanguage, String translatedLanguage) throws UserException;
 
     void deleteItem(long id);
 }

@@ -116,6 +116,19 @@ public class PhraseServiceImpl implements PhraseService {
         return null;
     }
 
+    public Item getItem(User user, OriginalWord oWord, Translation tWord) {
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from Item where user = :user " +
+                "and originalWord = :originalWord and translation = :translation");
+        query.setParameter("user", user);
+        query.setParameter("originalWord", oWord);
+        query.setParameter("translation", tWord);
+        Item result = (Item) query.uniqueResult();
+        session.close();
+        return result;
+    }
+
     private List<Item> getItems(OriginalLanguage oLang, TranslatedLanguage tLang, User user) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
@@ -129,7 +142,7 @@ public class PhraseServiceImpl implements PhraseService {
         return result;
     }
 
-    public void addItem(ItemBean item, String originalLanguage, String translatedLanguage) throws UserException {
+    public Item addItem(ItemBean item, String originalLanguage, String translatedLanguage) throws UserException {
         Item itemToAdd = new Item();
         User user = userService.getUserByLogin(item.getLogin());
         OriginalWord oWord = getOriginalWord(item.getForeign());
@@ -154,6 +167,7 @@ public class PhraseServiceImpl implements PhraseService {
         Transaction transaction = session.beginTransaction();
         session.save(itemToAdd);
         transaction.commit();
+        return getItem(user, oWord, tWord);
     }
 
     public void deleteItem(long id) {

@@ -16,15 +16,15 @@ public class Item {
     @Column(name = "id")
     private long id;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = OriginalWord.class)
     @JoinColumn(name = "original_id", nullable = false)
     private OriginalWord originalWord;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Translation.class)
     @JoinColumn(name = "translation_id", nullable = false)
     private Translation translation;
 
@@ -37,11 +37,11 @@ public class Item {
     @Column(name = "date_of_edition")
     private Date dateOfEdition;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = OriginalLanguage.class)
     @JoinColumn(name = "original_language", nullable = false)
     private OriginalLanguage originalLanguage;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = TranslatedLanguage.class)
     @JoinColumn(name = "translation_language", nullable = false)
     private TranslatedLanguage translatedLanguage;
 
