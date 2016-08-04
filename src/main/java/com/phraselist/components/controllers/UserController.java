@@ -1,7 +1,7 @@
 package com.phraselist.components.controllers;
 
 import com.phraselist.components.services.user.LoginService;
-import com.phraselist.components.services.user.UserService;
+import com.phraselist.components.services.user.UserDAO;
 import com.phraselist.model.beans.user.ClientUserBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
 import org.apache.log4j.Logger;
@@ -26,14 +26,14 @@ public class UserController {
     private static final Logger LOG = Logger.getLogger(UserController.class);
 
     @Inject
-    private UserService userService;
+    private UserDAO userDAO;
 
     @Inject
     private LoginService loginService;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Object> createUser(@Valid @RequestBody ClientUserBean user) {
-        userService.createUser(user);
+        userDAO.createUser(user);
         LOG.info("User " + user.getName() + " " + user.getEmail() + " was created successfully.");
         return new ResponseEntity<Object>(HttpStatus.OK);
     }

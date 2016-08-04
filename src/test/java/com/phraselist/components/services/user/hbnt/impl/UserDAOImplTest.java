@@ -1,8 +1,6 @@
 package com.phraselist.components.services.user.hbnt.impl;
 
 import com.phraselist.components.data.hbnt.entities.User;
-import com.phraselist.components.services.user.UserService;
-import com.phraselist.model.beans.user.ClientUserBean;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -12,7 +10,7 @@ import static org.junit.Assert.*;
  * 25.07.2016
  * Created by Rodion.
  */
-public class UserServiceImplTest {
+public class UserDAOImplTest {
     private static final String USER_LOGIN = "example";
     private static final String USER_NAME = "John";
     private static final String USER_LASTNAME = "Doe";
@@ -20,11 +18,11 @@ public class UserServiceImplTest {
     private static final String USER_PASS = "password12";
 
 
-    private static UserServiceImpl userService;
+    private static UserDAOImpl userService;
 
     @BeforeClass
     public static void setUp() {
-        userService = new UserServiceImpl();
+        userService = new UserDAOImpl();
     }
 
     @Test

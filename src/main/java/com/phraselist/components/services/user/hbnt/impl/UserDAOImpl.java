@@ -3,7 +3,7 @@ package com.phraselist.components.services.user.hbnt.impl;
 import com.phraselist.components.data.hbnt.entities.Role;
 import com.phraselist.components.data.hbnt.util.HibernateUtil;
 import com.phraselist.components.data.hbnt.entities.User;
-import com.phraselist.components.services.user.UserService;
+import com.phraselist.components.services.user.UserDAO;
 import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.user.ClientUserBean;
 import org.hibernate.Query;
@@ -15,7 +15,7 @@ import org.hibernate.Transaction;
  * 25.07.2016
  * Created by Rodion.
  */
-public class UserServiceImpl implements UserService {
+public class UserDAOImpl implements UserDAO {
 
     public void createUser(ClientUserBean user) {
         User convertedUser = convertUser(user);

@@ -8,7 +8,7 @@ import com.phraselist.model.beans.user.ClientUserBean;
  * 19.04.2016
  * Created by Rodion.
  */
-public interface UserService {
+public interface UserDAO {
     /**
      * Creates new user in system.
      *

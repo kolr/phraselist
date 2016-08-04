@@ -1,7 +1,7 @@
 package com.phraselist.components.controllers;
 
 import com.phraselist.components.data.hbnt.entities.Item;
-import com.phraselist.components.services.user.PhraseService;
+import com.phraselist.components.services.user.PhraseDAO;
 import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.db.ItemBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
@@ -33,7 +33,7 @@ public class PhraseController {
     private Storage storage;
 
     @Inject
-    private PhraseService phraseService;
+    private PhraseDAO phraseDAO;
 
     @Inject
     private ValidationManager validationManager;
@@ -64,7 +64,7 @@ public class PhraseController {
         item.setDateOfCreation(new Date());
         item.setDateOfEdition(new Date());
         try {
-            Item temp = phraseService.addItem(item, language, "russian");
+            Item temp = phraseDAO.addItem(item, language, "russian");
             item.setId(temp.getId());
         } catch (UserException ex) {
             LOG.error(ex);
@@ -80,7 +80,7 @@ public class PhraseController {
         if (request.getSession().getAttribute("user") != null) {
             user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
             LOG.info(String.format("Current user is %s %s.", user.getName(), user.getLastname()));
-            return convertToItemBean(phraseService.getUsersItems(language, "russian", user.getLogin()));
+            return convertToItemBean(phraseDAO.getUsersItems(language, "russian", user.getLogin()));
         } else {
             LOG.info("Guest is using this vocabulary.");
         }
@@ -89,14 +89,14 @@ public class PhraseController {
 
     @RequestMapping(value = "/{wordID}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteWord(@PathVariable long wordID) {
-        phraseService.deleteItem(wordID);
+        phraseDAO.deleteItem(wordID);
         return new ResponseEntity<String>(String.valueOf(wordID), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.POST)
     public ResponseEntity<String> deleteWords(@RequestBody List<String> markedItems) {
         for (String item : markedItems) {
-            phraseService.deleteItem(Long.valueOf(item));
+            phraseDAO.deleteItem(Long.valueOf(item));
         }
         return new ResponseEntity<String>(HttpStatus.OK);
     }

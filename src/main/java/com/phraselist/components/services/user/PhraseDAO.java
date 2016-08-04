@@ -10,7 +10,7 @@ import java.util.List;
  * 26.07.2016
  * Created by Rodion.
  */
-public interface PhraseService {
+public interface PhraseDAO {
     OriginalWord getOriginalWord(String word);
 
     OriginalWord addOriginalWord(String word);
