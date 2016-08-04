@@ -35,8 +35,8 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <bean id="userService" class="com.phraselist.components.services.user.hbnt.impl.UserDAOImpl"/>
-    <bean id="loginService" class="com.phraselist.components.services.user.impl.LoginServiceImpl"/>
-    <bean id="phraseService" class="com.phraselist.components.services.user.hbnt.impl.PhraseDAOImpl"/>
+    <bean id="userService" class="com.phraselist.components.dao.user.hbnt.impl.UserDAOImpl"/>
+    <bean id="loginService" class="com.phraselist.components.dao.user.impl.LoginServiceImpl"/>
+    <bean id="phraseService" class="com.phraselist.components.dao.user.hbnt.impl.PhraseDAOImpl"/>
     <bean id="validationManager" class="com.phraselist.validation.ValidationManager"/>
 </beans>

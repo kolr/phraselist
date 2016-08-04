@@ -1,9 +1,9 @@
-package com.phraselist.components.services.user.hbnt.impl;
+package com.phraselist.components.dao.user.hbnt.impl;
 
 import com.phraselist.components.data.hbnt.entities.Role;
 import com.phraselist.components.data.hbnt.util.HibernateUtil;
 import com.phraselist.components.data.hbnt.entities.User;
-import com.phraselist.components.services.user.UserDAO;
+import com.phraselist.components.dao.user.UserDAO;
 import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.user.ClientUserBean;
 import org.hibernate.Query;

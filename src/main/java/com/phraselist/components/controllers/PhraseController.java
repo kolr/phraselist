@@ -1,7 +1,7 @@
 package com.phraselist.components.controllers;
 
 import com.phraselist.components.data.hbnt.entities.Item;
-import com.phraselist.components.services.user.PhraseDAO;
+import com.phraselist.components.dao.user.PhraseDAO;
 import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.db.ItemBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;

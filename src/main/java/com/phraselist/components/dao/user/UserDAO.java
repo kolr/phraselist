@@ -1,4 +1,4 @@
-package com.phraselist.components.services.user;
+package com.phraselist.components.dao.user;
 
 import com.phraselist.components.data.hbnt.entities.User;
 import com.phraselist.exceptions.login.UserException;

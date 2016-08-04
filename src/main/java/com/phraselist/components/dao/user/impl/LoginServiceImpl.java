@@ -1,7 +1,7 @@
-package com.phraselist.components.services.user.impl;
+package com.phraselist.components.dao.user.impl;
 
-import com.phraselist.components.services.user.LoginService;
-import com.phraselist.components.services.user.UserDAO;
+import com.phraselist.components.dao.user.LoginService;
+import com.phraselist.components.dao.user.UserDAO;
 import com.phraselist.components.data.hbnt.entities.User;
 import com.phraselist.exceptions.login.LoginException;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;

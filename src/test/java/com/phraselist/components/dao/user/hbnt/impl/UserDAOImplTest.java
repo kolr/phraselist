@@ -1,4 +1,4 @@
-package com.phraselist.components.services.user.hbnt.impl;
+package com.phraselist.components.dao.user.hbnt.impl;
 
 import com.phraselist.components.data.hbnt.entities.User;
 import org.junit.BeforeClass;
