@@ -1,4 +1,4 @@
-package com.phraselist.validation;
+package com.phraselist.validatior;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

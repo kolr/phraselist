@@ -5,7 +5,7 @@ import com.phraselist.components.services.user.UserService;
 import com.phraselist.components.data.hbnt.entities.User;
 import com.phraselist.exceptions.login.LoginException;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
-import com.phraselist.validation.Validator;
+import com.phraselist.validatior.Validator;
 
 import javax.inject.Inject;
 

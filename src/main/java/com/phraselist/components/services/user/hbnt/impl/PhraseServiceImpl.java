@@ -142,6 +142,7 @@ public class PhraseServiceImpl implements PhraseService {
         return result;
     }
 
+    // TODO think about.
     public Item addItem(ItemBean item, String originalLanguage, String translatedLanguage) throws UserException {
         Item itemToAdd = new Item();
         User user = userService.getUserByLogin(item.getLogin());
