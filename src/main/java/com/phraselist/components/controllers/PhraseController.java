@@ -7,6 +7,7 @@ import com.phraselist.model.beans.db.ItemBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
 import com.phraselist.storage.Storage;
 import com.phraselist.storage.Word;
+import com.phraselist.validation.ValidationManager;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,9 @@ public class PhraseController {
     private PhraseService phraseService;
 
     @Inject
+    private ValidationManager validationManager;
+
+    @Inject
     public PhraseController(Storage storage) {
         this.storage = storage;
     }
@@ -42,6 +46,11 @@ public class PhraseController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ItemBean> addWord(HttpServletRequest request,
                                             @RequestBody Word word, @PathVariable String language) {
+        LOG.info(word);
+        if (!validationManager.validate(word, Word.class)) {
+            LOG.error("words are not valid");
+            return new ResponseEntity<ItemBean>(HttpStatus.NOT_ACCEPTABLE);
+        }
         ItemBean item = new ItemBean();
         item.setForeign(word.getForeign());
         item.setTranslation(word.getTranslation());
@@ -60,7 +69,6 @@ public class PhraseController {
         } catch (UserException ex) {
             LOG.error(ex);
         }
-
         return new ResponseEntity<ItemBean>(item, HttpStatus.OK);
     }
 

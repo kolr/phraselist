@@ -26,7 +26,9 @@ public class VerifyTracker {
         List<VerifiableField> verifiableFields = new ArrayList<VerifiableField>();
         for (Field f : fields) {
             if (f.isAnnotationPresent(Validate.class)) {
-                String value = getFieldValue(obj, cl, f);
+                String temp = getFieldValue(obj, cl, f);
+                String value = temp != null ? temp : "";
+//                String value = getFieldValue(obj, cl, f);
                 FieldTypes tempType = f.getAnnotation(Validate.class).type();
                 VerifiableField field;
                 if (tempType.name().equalsIgnoreCase("none")) {

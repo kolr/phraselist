@@ -38,4 +38,5 @@
     <bean id="userService" class="com.phraselist.components.services.user.hbnt.impl.UserServiceImpl"/>
     <bean id="loginService" class="com.phraselist.components.services.user.impl.LoginServiceImpl"/>
     <bean id="phraseService" class="com.phraselist.components.services.user.hbnt.impl.PhraseServiceImpl"/>
+    <bean id="validationManager" class="com.phraselist.validation.ValidationManager"/>
 </beans>
