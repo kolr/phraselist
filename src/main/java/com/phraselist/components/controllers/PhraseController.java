@@ -1,7 +1,5 @@
 package com.phraselist.components.controllers;
 
-import com.phraselist.components.data.hbnt.entities.Item;
-import com.phraselist.components.dao.user.PhraseDAO;
 import com.phraselist.components.services.PhraseService;
 import com.phraselist.exceptions.phrase.PhraseListException;
 import com.phraselist.model.beans.db.ItemBean;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
