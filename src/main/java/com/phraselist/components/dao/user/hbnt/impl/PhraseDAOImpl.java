@@ -1,9 +1,9 @@
-package com.phraselist.components.services.user.hbnt.impl;
+package com.phraselist.components.dao.user.hbnt.impl;
 
+import com.phraselist.components.dao.user.PhraseDAO;
 import com.phraselist.components.data.hbnt.entities.*;
 import com.phraselist.components.data.hbnt.util.HibernateUtil;
-import com.phraselist.components.services.user.PhraseService;
-import com.phraselist.components.services.user.UserService;
+import com.phraselist.components.dao.user.UserDAO;
 import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.db.ItemBean;
 import org.apache.log4j.Logger;
@@ -19,13 +19,13 @@ import java.util.List;
  * 26.07.2016
  * Created by Rodion.
  */
-public class PhraseServiceImpl implements PhraseService {
-    private static final Logger LOG = Logger.getLogger(PhraseServiceImpl.class);
+public class PhraseDAOImpl implements PhraseDAO {
+    private static final Logger LOG = Logger.getLogger(PhraseDAOImpl.class);
 
     private SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
 
     @Inject
-    private UserService userService;
+    private UserDAO userDAO;
 
     public OriginalWord getOriginalWord(String word) {
         Session session = sessionFactory.getCurrentSession();
@@ -105,7 +105,7 @@ public class PhraseServiceImpl implements PhraseService {
         TranslatedLanguage translatedLanguage = getTranslatedLanguage(tLanguage);
         User user;
         try {
-            user = userService.getUserByLogin(login);
+            user = userDAO.getUserByLogin(login);
         } catch (UserException e) {
             LOG.error(e);
             return null;
@@ -145,7 +145,7 @@ public class PhraseServiceImpl implements PhraseService {
     // TODO think about.
     public Item addItem(ItemBean item, String originalLanguage, String translatedLanguage) throws UserException {
         Item itemToAdd = new Item();
-        User user = userService.getUserByLogin(item.getLogin());
+        User user = userDAO.getUserByLogin(item.getLogin());
         OriginalWord oWord = getOriginalWord(item.getForeign());
         if (oWord == null) {
             oWord = addOriginalWord(item.getForeign());

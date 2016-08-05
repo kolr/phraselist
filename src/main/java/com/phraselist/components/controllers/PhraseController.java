@@ -1,13 +1,11 @@
 package com.phraselist.components.controllers;
 
-import com.phraselist.components.data.hbnt.entities.Item;
-import com.phraselist.components.services.user.PhraseService;
-import com.phraselist.exceptions.login.UserException;
+import com.phraselist.components.services.PhraseService;
+import com.phraselist.exceptions.phrase.PhraseListException;
 import com.phraselist.model.beans.db.ItemBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
 import com.phraselist.storage.Storage;
 import com.phraselist.storage.Word;
-import com.phraselist.validation.ValidationManager;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,9 +32,6 @@ public class PhraseController {
     private PhraseService phraseService;
 
     @Inject
-    private ValidationManager validationManager;
-
-    @Inject
     public PhraseController(Storage storage) {
         this.storage = storage;
     }
@@ -46,29 +39,15 @@ public class PhraseController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ItemBean> addWord(HttpServletRequest request,
                                             @RequestBody Word word, @PathVariable String language) {
-        LOG.info(word);
-        if (!validationManager.validate(word, Word.class)) {
-            LOG.error("words are not valid");
-            return new ResponseEntity<ItemBean>(HttpStatus.NOT_ACCEPTABLE);
-        }
-        ItemBean item = new ItemBean();
-        item.setForeign(word.getForeign());
-        item.setTranslation(word.getTranslation());
         ClientUserBeanCommon user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
-        if (user == null) {
-            LOG.error("Guest has no rights to add words.");
+        ItemBean item;
+        try {
+            item = phraseService.addWord(word, user.getLogin(), language);
+        } catch (PhraseListException e) {
+            LOG.error(e);
             return new ResponseEntity<ItemBean>(HttpStatus.NOT_ACCEPTABLE);
         }
-        item.setLogin(user.getLogin());
-        item.setComment("none");
-        item.setDateOfCreation(new Date());
-        item.setDateOfEdition(new Date());
-        try {
-            Item temp = phraseService.addItem(item, language, "russian");
-            item.setId(temp.getId());
-        } catch (UserException ex) {
-            LOG.error(ex);
-        }
+
         return new ResponseEntity<ItemBean>(item, HttpStatus.OK);
     }
 
@@ -76,11 +55,10 @@ public class PhraseController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public List<ItemBean> getListWord(HttpServletRequest request, @PathVariable String language) {
-        ClientUserBeanCommon user = null;
-        if (request.getSession().getAttribute("user") != null) {
-            user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
+        ClientUserBeanCommon user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
+        if (user != null) {
             LOG.info(String.format("Current user is %s %s.", user.getName(), user.getLastname()));
-            return convertToItemBean(phraseService.getUsersItems(language, "russian", user.getLogin()));
+            return phraseService.getListOfWords(language, user.getLogin());
         } else {
             LOG.info("Guest is using this vocabulary.");
         }
@@ -95,26 +73,8 @@ public class PhraseController {
 
     @RequestMapping(value = "/all", method = RequestMethod.POST)
     public ResponseEntity<String> deleteWords(@RequestBody List<String> markedItems) {
-        for (String item : markedItems) {
-            phraseService.deleteItem(Long.valueOf(item));
-        }
+        phraseService.deleteItems(markedItems);
         return new ResponseEntity<String>(HttpStatus.OK);
-    }
-
-    private List<ItemBean> convertToItemBean(List<Item> lst) {
-        List<ItemBean> result = new ArrayList<ItemBean>();
-        for (Item item : lst) {
-            ItemBean temp = new ItemBean();
-            temp.setId(item.getId());
-            temp.setDateOfCreation(item.getDateOfCreation());
-            temp.setComment(item.getComment());
-            temp.setLogin(item.getUser().getLogin());
-            temp.setForeign(item.getOriginalWord().getWord());
-            temp.setTranslation(item.getTranslation().getWord());
-            temp.setDateOfEdition(item.getDateOfEdition());
-            result.add(temp);
-        }
-        return result;
     }
 
 }

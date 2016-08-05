@@ -1,9 +1,8 @@
-package com.phraselist.components.services.user.hbnt.impl;
+package com.phraselist.components.dao.user.hbnt.impl;
 
 import com.phraselist.components.data.hbnt.entities.*;
-import com.phraselist.components.services.user.UserService;
+import com.phraselist.components.dao.user.UserDAO;
 import com.phraselist.exceptions.login.UserException;
-import com.phraselist.model.beans.db.ItemBean;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -22,8 +20,8 @@ import static org.mockito.Mockito.*;
  * 26.07.2016
  * Created by Rodion.
  */
-public class PhraseServiceImplTest {
-    private static final Logger LOG = Logger.getLogger(PhraseServiceImplTest.class);
+public class PhraseDAOImplTest {
+    private static final Logger LOG = Logger.getLogger(PhraseDAOImplTest.class);
 
     private static final String ORIGINAL_WORD = "Window";
     private static final long ORIGINAL_WORD_ID = 30;
@@ -41,16 +39,16 @@ public class PhraseServiceImplTest {
     private static final int NUMBER_OF_ITEMS = 3;
 
     @InjectMocks
-    private PhraseServiceImpl phraseService;
+    private PhraseDAOImpl phraseService;
 
     @Mock
-    private UserService userService;
+    private UserDAO userDAO;
 
     @Before
     public void initMocks() {
         MockitoAnnotations.initMocks(this);
         try {
-            when(userService.getUserByLogin(USER_CORRECT_LOGIN)).thenReturn(getUser());
+            when(userDAO.getUserByLogin(USER_CORRECT_LOGIN)).thenReturn(getUser());
         } catch (UserException e) {
             LOG.error(e);
         }

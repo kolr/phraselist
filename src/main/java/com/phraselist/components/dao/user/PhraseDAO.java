@@ -1,4 +1,4 @@
-package com.phraselist.components.services.user;
+package com.phraselist.components.dao.user;
 
 import com.phraselist.components.data.hbnt.entities.*;
 import com.phraselist.exceptions.login.UserException;
@@ -10,7 +10,7 @@ import java.util.List;
  * 26.07.2016
  * Created by Rodion.
  */
-public interface PhraseService {
+public interface PhraseDAO {
     OriginalWord getOriginalWord(String word);
 
     OriginalWord addOriginalWord(String word);

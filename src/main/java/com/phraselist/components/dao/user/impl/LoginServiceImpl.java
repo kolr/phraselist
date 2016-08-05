@@ -1,7 +1,7 @@
-package com.phraselist.components.services.user.impl;
+package com.phraselist.components.dao.user.impl;
 
-import com.phraselist.components.services.user.LoginService;
-import com.phraselist.components.services.user.UserService;
+import com.phraselist.components.dao.user.LoginService;
+import com.phraselist.components.dao.user.UserDAO;
 import com.phraselist.components.data.hbnt.entities.User;
 import com.phraselist.exceptions.login.LoginException;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
@@ -18,12 +18,12 @@ public class LoginServiceImpl implements LoginService {
     private static final String PASSWORD_NOT_MATCH_MESSAGE = "Password \"%s\" entered by \"%s\" does not match.";
 
     @Inject
-    private UserService userService;
+    private UserDAO userDAO;
 
     public ClientUserBeanCommon login(String login, String pass) throws Exception {
         User user;
         if (validation(login, pass)) {
-            user = userService.getUserByLogin(login);
+            user = userDAO.getUserByLogin(login);
             if (passwordVerification(pass, user.getPass())) {
                 return getClientUserBeanCommon(user);
             } else {

@@ -35,10 +35,7 @@ public class Storage {
     }
 
     private void init() {
-        ItemBean word = new ItemBean();
-        word.setForeign("Hello");
-        word.setTranslation("Привет");
-        word.setId(Word.generateId());
+        ItemBean word = new ItemBean.Builder().id(Word.generateId()).foreign("Hello").translation("Привет").build();
         this.table.add(word);
     }
 }

@@ -1,4 +1,4 @@
-package com.phraselist.components.services.user;
+package com.phraselist.components.dao.user;
 
 import com.phraselist.components.data.hbnt.entities.User;
 import com.phraselist.exceptions.login.UserException;
@@ -8,7 +8,7 @@ import com.phraselist.model.beans.user.ClientUserBean;
  * 19.04.2016
  * Created by Rodion.
  */
-public interface UserService {
+public interface UserDAO {
     /**
      * Creates new user in system.
      *

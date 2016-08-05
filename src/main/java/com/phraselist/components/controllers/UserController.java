@@ -1,7 +1,7 @@
 package com.phraselist.components.controllers;
 
-import com.phraselist.components.services.user.LoginService;
-import com.phraselist.components.services.user.UserService;
+import com.phraselist.components.dao.user.LoginService;
+import com.phraselist.components.services.UserService;
 import com.phraselist.model.beans.user.ClientUserBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
 import org.apache.log4j.Logger;
