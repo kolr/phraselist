@@ -1,7 +1,6 @@
 package com.phraselist.components.controllers;
 
 import com.phraselist.components.dao.user.LoginService;
-import com.phraselist.components.dao.user.UserDAO;
 import com.phraselist.components.services.UserService;
 import com.phraselist.model.beans.user.ClientUserBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
