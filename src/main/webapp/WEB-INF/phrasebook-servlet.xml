@@ -40,4 +40,5 @@
     <bean id="phraseDAO" class="com.phraselist.components.dao.user.hbnt.impl.PhraseDAOImpl"/>
     <bean id="validationManager" class="com.phraselist.validation.ValidationManager"/>
     <bean id="phraseService" class="com.phraselist.components.services.impl.PhraseServiceImpl"/>
+    <bean id="userService" class="com.phraselist.components.services.impl.UserServiceImpl"/>
 </beans>
