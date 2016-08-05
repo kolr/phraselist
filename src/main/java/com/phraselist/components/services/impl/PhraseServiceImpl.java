@@ -23,6 +23,7 @@ public class PhraseServiceImpl implements PhraseService {
     private static final Logger LOG = Logger.getLogger(PhraseServiceImpl.class);
 
     private static final String NOT_VALID_ERROR = "Words are not valid.";
+    private static final String TRANSLATED_LANGUAGE = "russian";
 
     @Inject
     private ValidationManager validationManager;
@@ -37,7 +38,7 @@ public class PhraseServiceImpl implements PhraseService {
         }
         ItemBean item = getItemBean(word, userLogin);
         try {
-            Item temp = phraseDAO.addItem(item, language, "russian");
+            Item temp = phraseDAO.addItem(item, language, TRANSLATED_LANGUAGE);
             item = new ItemBean.Builder().inItemBean(item).id(temp.getId()).build();
         } catch (UserException ex) {
             LOG.error(ex);
@@ -47,7 +48,7 @@ public class PhraseServiceImpl implements PhraseService {
     }
 
     public List<ItemBean> getListOfWords(String language, String login) {
-        return convertToItemBean(phraseDAO.getUsersItems(language, "russian", login));
+        return convertToItemBean(phraseDAO.getUsersItems(language, TRANSLATED_LANGUAGE, login));
     }
 
     public void deleteItem(long id) {
