@@ -2,12 +2,12 @@ package com.phraselist.components.controllers;
 
 import com.phraselist.components.data.hbnt.entities.Item;
 import com.phraselist.components.dao.user.PhraseDAO;
-import com.phraselist.exceptions.login.UserException;
+import com.phraselist.components.services.PhraseService;
+import com.phraselist.exceptions.phrase.PhraseListException;
 import com.phraselist.model.beans.db.ItemBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
 import com.phraselist.storage.Storage;
 import com.phraselist.storage.Word;
-import com.phraselist.validation.ValidationManager;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,7 +35,7 @@ public class PhraseController {
     private PhraseDAO phraseDAO;
 
     @Inject
-    private ValidationManager validationManager;
+    private PhraseService phraseService;
 
     @Inject
     public PhraseController(Storage storage) {
@@ -46,29 +45,15 @@ public class PhraseController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ItemBean> addWord(HttpServletRequest request,
                                             @RequestBody Word word, @PathVariable String language) {
-        LOG.info(word);
-        if (!validationManager.validate(word, Word.class)) {
-            LOG.error("words are not valid");
-            return new ResponseEntity<ItemBean>(HttpStatus.NOT_ACCEPTABLE);
-        }
-        ItemBean item = new ItemBean();
-        item.setForeign(word.getForeign());
-        item.setTranslation(word.getTranslation());
         ClientUserBeanCommon user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
-        if (user == null) {
-            LOG.error("Guest has no rights to add words.");
+        ItemBean item = null;
+        try {
+            item = phraseService.addWord(word, user.getLogin(), language);
+        } catch (PhraseListException e) {
+            LOG.error(e);
             return new ResponseEntity<ItemBean>(HttpStatus.NOT_ACCEPTABLE);
         }
-        item.setLogin(user.getLogin());
-        item.setComment("none");
-        item.setDateOfCreation(new Date());
-        item.setDateOfEdition(new Date());
-        try {
-            Item temp = phraseDAO.addItem(item, language, "russian");
-            item.setId(temp.getId());
-        } catch (UserException ex) {
-            LOG.error(ex);
-        }
+
         return new ResponseEntity<ItemBean>(item, HttpStatus.OK);
     }
 
@@ -104,14 +89,9 @@ public class PhraseController {
     private List<ItemBean> convertToItemBean(List<Item> lst) {
         List<ItemBean> result = new ArrayList<ItemBean>();
         for (Item item : lst) {
-            ItemBean temp = new ItemBean();
-            temp.setId(item.getId());
-            temp.setDateOfCreation(item.getDateOfCreation());
-            temp.setComment(item.getComment());
-            temp.setLogin(item.getUser().getLogin());
-            temp.setForeign(item.getOriginalWord().getWord());
-            temp.setTranslation(item.getTranslation().getWord());
-            temp.setDateOfEdition(item.getDateOfEdition());
+            ItemBean temp = new ItemBean.Builder().id(item.getId()).foreign(item.getOriginalWord().getWord())
+                    .translation(item.getTranslation().getWord()).login(item.getUser().getLogin()).comment(item.getComment())
+                    .dateOfCreation(item.getDateOfCreation()).dateOfEdition(item.getDateOfEdition()).build();
             result.add(temp);
         }
         return result;
