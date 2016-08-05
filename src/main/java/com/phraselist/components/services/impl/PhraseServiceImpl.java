@@ -11,7 +11,9 @@ import com.phraselist.validation.ValidationManager;
 import org.apache.log4j.Logger;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 04.08.2016
@@ -44,8 +46,33 @@ public class PhraseServiceImpl implements PhraseService {
         return item;
     }
 
+    public List<ItemBean> getListOfWords(String language, String login) {
+        return convertToItemBean(phraseDAO.getUsersItems(language, "russian", login));
+    }
+
+    public void deleteItem(long id) {
+        phraseDAO.deleteItem(id);
+    }
+
+    public void deleteItems(List<String> markedItems) {
+        for (String item : markedItems) {
+            phraseDAO.deleteItem(Long.valueOf(item));
+        }
+    }
+
     private ItemBean getItemBean(Word word, String userLogin) {
         return new ItemBean.Builder().foreign(word.getForeign()).translation(word.getTranslation())
                 .login(userLogin).comment("none").dateOfCreation(new Date()).dateOfEdition(new Date()).build();
+    }
+
+    private List<ItemBean> convertToItemBean(List<Item> lst) {
+        List<ItemBean> result = new ArrayList<ItemBean>();
+        for (Item item : lst) {
+            ItemBean temp = new ItemBean.Builder().id(item.getId()).foreign(item.getOriginalWord().getWord())
+                    .translation(item.getTranslation().getWord()).login(item.getUser().getLogin()).comment(item.getComment())
+                    .dateOfCreation(item.getDateOfCreation()).dateOfEdition(item.getDateOfEdition()).build();
+            result.add(temp);
+        }
+        return result;
     }
 }
