@@ -46,7 +46,14 @@ public class UserDAOImpl implements UserDAO {
     }
 
     public User getUserByEmail(String email) {
-        return null;
+        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from User where email = :email");
+        query.setParameter("email", email);
+        User user = (User) query.uniqueResult();
+        session.close();
+        return user;
     }
 
     private User convertUser(ClientUserBean user) {
