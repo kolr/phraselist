@@ -2,6 +2,7 @@ package com.phraselist.components.controllers;
 
 import com.phraselist.components.dao.user.LoginService;
 import com.phraselist.components.services.UserService;
+import com.phraselist.exceptions.login.UserException;
 import com.phraselist.model.beans.user.ClientUserBean;
 import com.phraselist.model.beans.user.ClientUserBeanCommon;
 import org.apache.log4j.Logger;
@@ -33,8 +34,11 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Object> createUser(@Valid @RequestBody ClientUserBean user) {
-        userService.createUser(user);
-        LOG.info("User " + user.getName() + " " + user.getEmail() + " was created successfully.");
+        try {
+            userService.createUser(user);
+        } catch (UserException e) {
+            LOG.error(e);
+        }
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
