@@ -65,6 +65,20 @@ public class PhraseController {
         return this.storage.getAll();
     }
 
+    @RequestMapping(value = "/{key}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<ItemBean> search(HttpServletRequest request, @PathVariable String language, @PathVariable String key) {
+        LOG.info("searching. " + key);
+        ClientUserBeanCommon user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
+        if (user != null) {
+            return phraseService.searching(language, user.getLogin(), key.toLowerCase());
+        } else {
+//            LOG.info(String.format("No such word in %s's list.", user.getLogin()));
+            LOG.info("Guest is using this vocabulary.");
+        }
+        return null;
+    }
+
     @RequestMapping(value = "/{wordID}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteWord(@PathVariable long wordID) {
         phraseService.deleteItem(wordID);

@@ -61,6 +61,26 @@ public class PhraseServiceImpl implements PhraseService {
         }
     }
 
+    public List<ItemBean> searching(String language, String login, String keyWord) {
+        if (keyWord.matches("[a-zA-Zа-яА-Я]{1,30}")) {
+            List<ItemBean> wordContainer = getListOfWords(language, login);
+            LOG.info("Key Word ==> " + keyWord);
+            return searchString(keyWord, wordContainer);
+        }
+        return null;
+    }
+
+    private List<ItemBean> searchString(String keyWord, List<ItemBean> wordContainer) {
+        List<ItemBean> wordContainerResult = new ArrayList<ItemBean>();
+        for (ItemBean item : wordContainer) {
+            if (item.getForeign().toLowerCase().contains(keyWord) ||
+                    item.getTranslation().toLowerCase().contains(keyWord)) {
+                wordContainerResult.add(item);
+            }
+        }
+        return wordContainerResult;
+    }
+
     private ItemBean getItemBean(Word word, String userLogin) {
         return new ItemBean.Builder().foreign(word.getForeign()).translation(word.getTranslation())
                 .login(userLogin).comment("none").dateOfCreation(new Date()).dateOfEdition(new Date()).build();

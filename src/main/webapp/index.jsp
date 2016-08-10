@@ -185,7 +185,7 @@
                 <span id="trash" class="delete glyphicon glyphicon-trash" aria-hidden="true"></span>
             </div>
             <div class="col-xs-6 search-input">
-                <input type="text" class="form-control" placeholder="Enter a word you want to find">
+                <input type="text" ng-model="searchInput" class="form-control" placeholder="Enter a word you want to find" ng-Keyup="searchThroughList()">
             </div>
         </div>
         <div class="list col-xs-12 word-table">
