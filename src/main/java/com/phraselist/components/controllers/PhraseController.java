@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 /**
@@ -68,7 +70,14 @@ public class PhraseController {
     @RequestMapping(value = "/{key}", method = RequestMethod.GET)
     @ResponseBody
     public List<ItemBean> search(HttpServletRequest request, @PathVariable String language, @PathVariable String key) {
-        LOG.info("searching. " + key);
+        String k = null;
+        try {
+            k = URLDecoder.decode(key, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            LOG.error(e);
+        }
+
+        LOG.info("searching. " + key + " and  " + k);
         ClientUserBeanCommon user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
         if (user != null) {
             return phraseService.searching(language, user.getLogin(), key.toLowerCase());

@@ -2,6 +2,7 @@
 <head>
     <%@ page isELIgnored="false" %>
     <title>List</title>
+    <meta charset="UTF-8">
     <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
 
     <link href="resources/css/custom/phrases.css" rel="stylesheet">
@@ -200,6 +201,9 @@
                                                ng-click="deleteWord(word.id)"></span></td>
                 </tr>
             </table>
+            <div id="phraselist-error-holder" class="error-container col-xs-11 phraselist-error error-hidden">
+                <div>No such word</div>
+            </div>
         </div>
     </div>
 

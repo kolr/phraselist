@@ -68,11 +68,11 @@ div.input-with-error {
     color: red;
 }
 
-div.input-with-error input{
+div.input-with-error input {
     border: solid 1px red;
 }
 
-p.error-hidden {
+.error-hidden {
     display: none;
 }
 
@@ -108,4 +108,11 @@ div.error-box p {
 #add-word-button-error-box {
     display: inline;
     color: red;
+}
+
+.phraselist-error {
+    font-size: 36px;
+    font-family: sans-serif;
+    color: #aaaaaa;
+    text-align: center;
 }
