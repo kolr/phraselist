@@ -72,10 +72,8 @@ public class PhraseController {
         ClientUserBeanCommon user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
         if (user != null) {
             return phraseService.searching(language, user.getLogin(), key.toLowerCase());
-        } else {
-//            LOG.info(String.format("No such word in %s's list.", user.getLogin()));
-            LOG.info("Guest is using this vocabulary.");
         }
+        LOG.info("Guest is using this vocabulary.");
         return null;
     }
 
