@@ -18,4 +18,6 @@ public interface PhraseService {
     void deleteItem(long id);
 
     void deleteItems(List<String> markedItems);
+
+    List<ItemBean> searching(String language, String login, String keyWord);
 }

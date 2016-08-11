@@ -23,9 +23,24 @@ app.controller('TableController', ['$scope', '$http', "Word", "$rootScope", func
         displayEnabling();
     };
 
+    $scope.searchThroughList = function () {
+        var searchKey = $scope.searchInput;
+        $http.get("/" + $scope.language + "/phrases/" + searchKey).success(function (data) {
+            if (data.length == 0) {
+                document.getElementById("phraselist-error-holder").classList.remove("error-hidden");
+            } else {
+                document.getElementById("phraselist-error-holder").classList.add("error-hidden");
+            }
+            $scope.words = data;
+        }).error(function () {
+            console.log("There is no such word in your list.");
+        })
+
+    };
+
     var update = function (res) {
         console.log(res);
-        if(res == undefined) {
+        if (res == undefined) {
             $scope.words = Word.query(url());
         } else if ($scope.words.length == 0 || res.data == "") {
             $scope.words = Word.query(url());
@@ -45,7 +60,7 @@ app.controller('TableController', ['$scope', '$http', "Word", "$rootScope", func
         var deletedIndex = $scope.words.indexOf(el);
         var firstPart = $scope.words.slice(0, deletedIndex);
         var secondPart = $scope.words.slice(deletedIndex + 1);
-        for(var i = 0; i < secondPart.length; i++) {
+        for (var i = 0; i < secondPart.length; i++) {
             firstPart.push(secondPart[i])
         }
         $scope.words = firstPart;

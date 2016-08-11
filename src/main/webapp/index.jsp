@@ -2,6 +2,7 @@
 <head>
     <%@ page isELIgnored="false" %>
     <title>List</title>
+    <meta charset="UTF-8">
     <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
 
     <link href="resources/css/custom/phrases.css" rel="stylesheet">
@@ -185,7 +186,7 @@
                 <span id="trash" class="delete glyphicon glyphicon-trash" aria-hidden="true"></span>
             </div>
             <div class="col-xs-6 search-input">
-                <input type="text" class="form-control" placeholder="Enter a word you want to find">
+                <input type="text" ng-model="searchInput" class="form-control" placeholder="Enter a word you want to find" ng-Keyup="searchThroughList()">
             </div>
         </div>
         <div class="list col-xs-12 word-table">
@@ -200,6 +201,9 @@
                                                ng-click="deleteWord(word.id)"></span></td>
                 </tr>
             </table>
+            <div id="phraselist-error-holder" class="error-container col-xs-11 phraselist-error error-hidden">
+                <div>No such word</div>
+            </div>
         </div>
     </div>
 
