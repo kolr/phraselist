@@ -19,7 +19,6 @@ app.controller('userController', ['$scope', '$http', "User", "$rootScope", funct
         user.name = $scope.signUpName;
         user.lastname = $scope.signUpLastname;
         user.password = $scope.signUpPassword;
-        console.log(user);
         user.$save("/user", function () {
             $scope.signUpLogin = "";
             $scope.signUpEmail = "";

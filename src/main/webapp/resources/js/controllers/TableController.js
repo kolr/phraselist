@@ -39,7 +39,6 @@ app.controller('TableController', ['$scope', '$http', "Word", "$rootScope", func
     };
 
     var update = function (res) {
-        console.log(res);
         if (res == undefined) {
             $scope.words = Word.query(url());
         } else if ($scope.words.length == 0 || res.data == "") {
@@ -74,8 +73,6 @@ app.controller('TableController', ['$scope', '$http', "Word", "$rootScope", func
         word.$save(url(), function (data) {
             $scope.foreign = "";
             $scope.translation = "";
-            console.log(data);
-            console.log($scope.words);
         }, function () {
             var errBox = document.getElementById("add-word-button-error-box");
             errBox.classList.remove("hidden");
