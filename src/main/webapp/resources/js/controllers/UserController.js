@@ -19,12 +19,17 @@ app.controller('userController', ['$scope', '$http', "User", "$rootScope", funct
         user.name = $scope.signUpName;
         user.lastname = $scope.signUpLastname;
         user.password = $scope.signUpPassword;
-        user.$save("/user", function () {
+        user.$save("/user", function (data) {
             $scope.signUpLogin = "";
             $scope.signUpEmail = "";
             $scope.signUpName = "";
             $scope.signUpLastname = "";
             $scope.signUpPassword = "";
+            $('#signUp').modal('hide');
+            user = data;
+            initializeScopeVariables(user);
+            displayUser(user);
+            $rootScope.$emit("CallUpdateAfterLogin", {});
         });
 
     };

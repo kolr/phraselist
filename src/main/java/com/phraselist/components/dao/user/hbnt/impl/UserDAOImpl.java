@@ -17,13 +17,14 @@ import org.hibernate.Transaction;
  */
 public class UserDAOImpl implements UserDAO {
 
-    public void createUser(ClientUserBean user) {
+    public User createUser(ClientUserBean user) {
         User convertedUser = convertUser(user);
         SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.save(convertedUser);
         session.getTransaction().commit();
+        return convertedUser;
     }
 
     public void updateUser(User user) {

@@ -24,6 +24,7 @@ import javax.validation.Valid;
 @RequestMapping(value = "user")
 public class UserController {
     private static final Logger LOG = Logger.getLogger(UserController.class);
+    public static final String USER_SESSION_ATTR = "user";
 
     @Inject
     private UserService userService;
@@ -32,15 +33,18 @@ public class UserController {
     private LoginService loginService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Object> createUser(@Valid @RequestBody ClientUserBean user) {
-        userService.createUser(user);
+    public ResponseEntity<Object> createUser(@Valid @RequestBody ClientUserBean user, HttpServletRequest request) {
+        ClientUserBeanCommon userBean = userService.createUser(user);
+        if (userBean != null) {
+            request.getSession().setAttribute(USER_SESSION_ATTR, userBean);
+        }
         LOG.info("User " + user.getName() + " " + user.getEmail() + " was created successfully.");
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "{login}", method = RequestMethod.POST)
     public ResponseEntity<ClientUserBeanCommon> signIn(@PathVariable String login, @RequestBody String pass, HttpServletRequest req) {
-        if (req.getSession().getAttribute("user") != null) {
+        if (req.getSession().getAttribute(USER_SESSION_ATTR) != null) {
             LOG.info("The session variable had been returned.");
             return new ResponseEntity<ClientUserBeanCommon>((ClientUserBeanCommon) req.getSession().getAttribute("user"), HttpStatus.OK);
         }
@@ -52,7 +56,7 @@ public class UserController {
             LOG.error(e);
             return new ResponseEntity<ClientUserBeanCommon>(HttpStatus.NOT_FOUND);
         }
-        req.getSession().setAttribute("user", userBean);
+        req.getSession().setAttribute(USER_SESSION_ATTR, userBean);
         LOG.info("New user had been set up in session.");
         return new ResponseEntity<ClientUserBeanCommon>(userBean, HttpStatus.OK);
     }
@@ -60,7 +64,7 @@ public class UserController {
     @RequestMapping(value = "{login}/out", method = RequestMethod.POST)
     public ResponseEntity<Object> signOut(@PathVariable String login, HttpServletRequest req) {
         HttpSession session = req.getSession();
-        if (session.getAttribute("user") != null) {
+        if (session.getAttribute(USER_SESSION_ATTR) != null) {
             session.invalidate();
             LOG.info(String.format("Session of user %s has been closed.", login));
             return new ResponseEntity<Object>(HttpStatus.OK);
@@ -72,7 +76,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<ClientUserBeanCommon> initializeUser(HttpServletRequest request) {
-        ClientUserBeanCommon user = (ClientUserBeanCommon) request.getSession().getAttribute("user");
+        ClientUserBeanCommon user = (ClientUserBeanCommon) request.getSession().getAttribute(USER_SESSION_ATTR);
         if (user != null) {
             return new ResponseEntity<ClientUserBeanCommon>(user, HttpStatus.OK);
         }
