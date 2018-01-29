@@ -14,7 +14,7 @@ public interface UserDAO {
      *
      * @param user - new user.
      */
-    void createUser(ClientUserBean user);
+    User createUser(ClientUserBean user);
 
     /**
      * Updates existing in data base user.
